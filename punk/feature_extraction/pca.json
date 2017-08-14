@@ -8,7 +8,7 @@
     ],
     "library": "punk",
     "version": "0.1.0",
-    "source_code": "https://github.com/NewKnowledge/distill_primitives/blob/master/distill_primitives/feature_extraction/pca.py#L4",
+    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_extraction/pca.py#L4",
     "is_class": false,
     "parameters": [ 
         {
