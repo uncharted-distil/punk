@@ -1,0 +1,69 @@
+{
+    "id": "eeb536e8-252d-379b-a4b7-b43f93b06c62",
+    "name": "punk.feature_extraction.fastica.fastica_feature_exatraction",
+    "common_name": "FastICA",
+    "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+    "languages": [
+        "python"
+    ],
+    "library": "punk",
+    "version": "0.1.0",
+    "source_code": "https://github.com/NewKnowledge/distill_primitives/blob/master/distill_primitives/feature_extraction/fastica.py#L4",
+    "is_class": false,
+    "parameters": [ 
+        {
+            "is_hyperparameter": false,
+            "type": "array-like",
+            "shape": "n_samples, n_features",
+            "name": "X",
+            "description": "Training data."
+        }
+    ],
+    "algorithm_type": [                                                         
+        "dimensionality reduction"                                              
+    ],
+    "task_type": [
+        "feature extraction"                                              
+    ],
+    "output_type": [
+        "features"
+    ], 
+    "team": "distil",
+    "schema_version": 1.0,
+    "build": [
+        {
+            "type": "pip",
+            "package": "punk"
+        }
+    ],
+    "compute_resources": {
+        "sample_size": [
+            1000.0, 
+            10.0
+        ],
+        "sample_unit": [
+            "MB"
+        ],
+        "num_nodes": [
+            1
+        ],
+        "cores_per_node": [
+            1
+        ],
+        "gpus_per_node": [
+            0
+        ],
+        "mem_per_node": [
+            1.0
+        ],
+        "disk_per_node": [
+            1.0
+        ],
+        "mem_per_gpu": [
+            0.0
+        ],
+        "expected_running_time": [
+            5.0
+        ]
+    }
+}

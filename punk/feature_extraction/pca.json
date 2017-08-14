@@ -1,0 +1,69 @@
+{
+    "id": "4c3d2b8e-c2bd-33c8-a92d-2ad5dcf2adaa",
+    "name": "punk.feature_extraction.pca.pca_feature_exatraction",
+    "common_name": "PCA",
+    "description": "Principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract. It can also use the scipy.sparse.linalg ARPACK implementation of the truncated SVD. Notice that this class does not support sparse input. See TruncatedSVD for an alternative with sparse data.",
+    "languages": [
+        "python"
+    ],
+    "library": "punk",
+    "version": "0.1.0",
+    "source_code": "https://github.com/NewKnowledge/distill_primitives/blob/master/distill_primitives/feature_extraction/pca.py#L4",
+    "is_class": false,
+    "parameters": [ 
+        {
+            "is_hyperparameter": false,
+            "type": "array-like",
+            "shape": "n_samples, n_features",
+            "name": "X",
+            "description": "Training data."
+        }
+    ],
+    "algorithm_type": [                                                         
+        "dimensionality reduction"                                              
+    ],
+    "task_type": [
+        "feature extraction"                                              
+    ],
+    "output_type": [
+        "features"
+    ], 
+    "team": "distil",
+    "schema_version": 1.0,
+    "build": [
+        {
+            "type": "pip",
+            "package": "punk"
+        }
+    ],
+    "compute_resources": {
+        "sample_size": [
+            1000.0, 
+            10.0
+        ],
+        "sample_unit": [
+            "MB"
+        ],
+        "num_nodes": [
+            1
+        ],
+        "cores_per_node": [
+            1
+        ],
+        "gpus_per_node": [
+            0
+        ],
+        "mem_per_node": [
+            1.0
+        ],
+        "disk_per_node": [
+            1.0
+        ],
+        "mem_per_gpu": [
+            0.0
+        ],
+        "expected_running_time": [
+            5.0
+        ]
+    }
+}
