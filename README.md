@@ -51,8 +51,3 @@ twine upload dist/*
  * https://archive.ics.uci.edu/ml/datasets/
  * https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes
 
-### PCA
-* Return a feature ranking based on first principal componenet along with the
-  contributions to each component
-
-
