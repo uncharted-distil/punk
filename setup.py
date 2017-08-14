@@ -9,7 +9,7 @@ setup(
     description="Primitives for Uncovering New Knowledge.",
     long_description="Machine Learning pipeline elements.",
 
-    url="https://github.com/alejandrox1/punk",
+    url="https://github.com/NewKnowledge/punk",
 
     author="New Knowledge",
     author_email="alarcj137@gmail.com",
