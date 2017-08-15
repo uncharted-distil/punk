@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.decomposition import PCA
+from ..utils import Bunch
 
 
 def pca_feature_selection(X):
@@ -28,20 +29,26 @@ def pca_feature_selection(X):
 
     Returns
     -------
-    ranking1 : array, [n_components]
-        Returns the indices of most important features for the first principal 
-        component in ascending order (most important feature 0, least important 
-        feature n_features-1).
-    ranking2 : array, [n_components]
-        Returns the indices of most important features for each principal 
-        components.
+    rankings : Bunch 
+        "importance_on1stpc" corresponds to the indices of most important 
+        features for the first principal. Component are in ascending order 
+        (most important feature 0, least important feature n_features-1).
+        
+        "importance_onallpcs" corresponds to the indices of the one most 
+        important feature for each principal components.
+
+        "explained_variance_ratio" Percentage of variance explained by each of
+        the selected components.
     """
     pca = PCA()
     pca.fit_transform(X)
     M = np.absolute(pca.components_.T)
 
+    rankings = Bunch()
     # Rank features based on contribtuions to 1st PC
-    ranking1 = np.argsort(M[:,0], axis=0)[::-1]
+    rankings["importance_on1stpc"] = np.argsort(M[:,0], axis=0)[::-1]
     # Rank features based on contributions to PCs
-    ranking2 = np.argmax(M, axis=0)
-    return ranking1, ranking2
+    rankings["importance_onallpcs"] = = np.argmax(M, axis=0)
+    rankings["explained_variance_ratio"] = pca.explained_variance_ratio_
+
+    return rankings
