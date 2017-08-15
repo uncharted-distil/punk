@@ -1,12 +1,14 @@
 # [Submitting Primitives to D3M](https://datadrivendiscovery.org/wiki/display/gov/Primitive+Submission+Process)
 
 1. Fork the official [`primitives_repo`](https://gitlab.datadrivendiscovery.org/jpl/primitives_repo)
- * This repo will only contain the `primitive.jsn` annotations file and `Dockerfile` in the case of Docker primitives.
+ * This repo will only contain the `primitive.json` annotations file and `Dockerfile` in the case of Docker primitives.
 
 2. Write your code
  * Make it public.
 
 3. Write annotations file.
+ * If you want an exaple the annotations files are included in this repo;
+   search for `*.json` files.
  * Look over the [annotation schema](https://datadrivendiscovery.org/wiki/display/gov/Primitives+Annotation+Schema)
  * One of the fields in the annotations filed is `uuid`, the convention we are
     using to generate these ids is:
@@ -43,13 +45,3 @@ python setup.py bdist_wheel
 twine upload dist/*
 
 ```
-
-
-
-
-## Datasets
-* For Bayesian optimization based on data distribution -> get a good schema for
-  dataset organization
- * https://archive.ics.uci.edu/ml/datasets/
- * https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes
-
