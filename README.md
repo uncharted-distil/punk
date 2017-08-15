@@ -1,4 +1,4 @@
-# (Submitting Primitives to D3M)[https://datadrivendiscovery.org/wiki/display/gov/Primitive+Submission+Process]
+# [Submitting Primitives to D3M](https://datadrivendiscovery.org/wiki/display/gov/Primitive+Submission+Process)
 
 1. Fork the official [`primitives_repo`](https://gitlab.datadrivendiscovery.org/jpl/primitives_repo)
  * This repo will only contain the `primitive.jsn` annotations file and `Dockerfile` in the case of Docker primitives.
