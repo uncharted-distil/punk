@@ -1,0 +1,82 @@
+{
+    "id": "f93a587c-5458-3ba0-82da-ba21131728e0",
+    "name": "punk.feature_selection.rf.rfregressor_feature_selection",
+    "common_name": "RandomForestRegressor,",
+    "description": "Ranking of features using principal component analysis.",
+    "languages": [
+        "python"
+    ],
+    "library": "punk",
+    "version": "0.1.0",
+    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/rf.py#L60",
+    "is_class": false,
+    "parameters": [ 
+        {
+            "is_hyperparameter": false,
+            "type": "array-like",
+            "shape": "n_samples, n_features",
+            "name": "X",
+            "description": "Training data."
+        },
+        {
+            "is_hyperparameter": false,
+            "type": "array",
+            "shape": "n_samples",
+            "name": "y",
+            "description": "Labels."
+        },
+        {
+            "optional": true,
+            "default": "3",
+            "is_hyperparameter": false,
+            "type": "int",
+            "name": "cv",
+            "description": "Cross-validation splitting strategy."
+        }
+    ],
+    "algorithm_type": [                                                         
+        "dimensionality reduction"                                              
+    ],
+    "task_type": [],
+    "output_type": [
+        "features"
+    ], 
+    "team": "distil",
+    "schema_version": 1.0,
+    "build": [
+        {
+            "type": "pip",
+            "package": "punk"
+        }
+    ],
+    "compute_resources": {
+        "sample_size": [
+            1000.0, 
+            10.0
+        ],
+        "sample_unit": [
+            "MB"
+        ],
+        "num_nodes": [
+            1
+        ],
+        "cores_per_node": [
+            1
+        ],
+        "gpus_per_node": [
+            0
+        ],
+        "mem_per_node": [
+            1.0
+        ],
+        "disk_per_node": [
+            1.0
+        ],
+        "mem_per_gpu": [
+            0.0
+        ],
+        "expected_running_time": [
+            5.0
+        ]
+    }
+}
