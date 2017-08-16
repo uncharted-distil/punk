@@ -49,6 +49,7 @@ def pca_feature_selection(X):
     rankings["importance_on1stpc"] = np.argsort(M[:,0], axis=0)[::-1]
     # Rank features based on contributions to PCs
     rankings["importance_onallpcs"] = = np.argmax(M, axis=0)
+    rankings["components"] = pca.components_
     rankings["explained_variance_ratio"] = pca.explained_variance_ratio_
 
     return rankings

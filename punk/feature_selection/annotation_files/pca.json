@@ -1,14 +1,14 @@
 {
-    "id": "c06231e3-c77b-3e0f-92dd-f635f65b6825",
-    "name": "punk.feature_selection.rf.rfclassifier_feature_selection",
-    "common_name": "RandomForestClassifier,",
+    "id": "22837cb7-4acc-3261-b5ce-16b615b6c7b1",
+    "name": "punk.feature_selection.pca.pca_feature_selection",
+    "common_name": "PCA",
     "description": "Ranking of features using principal component analysis.",
     "languages": [
         "python"
     ],
     "library": "punk",
     "version": "0.1.0",
-    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/rf.py#L8",
+    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/pca.py#L6",
     "is_class": false,
     "parameters": [ 
         {
@@ -17,29 +17,6 @@
             "shape": "n_samples, n_features",
             "name": "X",
             "description": "Training data."
-        },
-        {
-            "is_hyperparameter": false,
-            "type": "array",
-            "shape": "n_samples",
-            "name": "y",
-            "description": "Labels."
-        },
-        {
-            "optional": true,
-            "default": "3",
-            "is_hyperparameter": false,
-            "type": "int",
-            "name": "cv",
-            "description": "Cross-validation splitting strategy."
-        },
-        {
-            "optional": true,
-            "default": "\\'accuracy\\'",
-            "is_hyperparameter": false,
-            "type": "str",
-            "name": "scoring",
-            "description": "Scoring method. Can be string, callable, list/tuple, dict or None"
         }
     ],
     "algorithm_type": [                                                         
