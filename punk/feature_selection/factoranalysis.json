@@ -8,7 +8,7 @@
     ],
     "library": "punk",
     "version": "0.1.0",
-    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_extraction/factoranalysis.py#L4",
+    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/factoranalysis.py#L6",
     "is_class": false,
     "parameters": [ 
         {
