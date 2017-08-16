@@ -15,7 +15,8 @@
 ```
 import uuid
 
-uuid.uuid3(uuid.uuid3(uuid.NAMESPACE_DNS, 'datadrivendiscovery.org'), "punk.feature_extraction.pca.pca_feature_exatraction"+"0.1.0")
+base_uuid = uuid.uuid3(uuid.NAMESPACE_DNS, "datadrivendiscovery.org")
+uuid.uuid3(base_uuid, "punk.feature_extraction.pca.pca_feature_exatraction"+"0.1.0")
 ```
 
 4. Validate your annotations file.
