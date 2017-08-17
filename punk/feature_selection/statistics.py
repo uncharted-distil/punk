@@ -4,7 +4,7 @@ from sklearn.model_selection import cross_val_score
 from ..utils import Bunch
 
 
-def compute_scores(X):
+def compute_scores(X, max_iter=1000000, tol=1e-8):
     """ Compare PCA against FactorAnalysis.
 
         Code taken from 'http://scikit-learn.org/stable/auto_examples/'
@@ -20,11 +20,11 @@ def compute_scores(X):
     pca_scores, fa_scores : tuple of arrays
     """
     pca = PCA(svd_solver='full')
-    fa = FactorAnalysis(max_iter=1000000, tol=1e-8)
+    fa = FactorAnalysis(max_iter=max_iter, tol=tol)
 
     pca_scores, fa_scores = [], []
-    n_components = X.shape[1]
-    for n in n_components:
+    n_components = X.shape[1] 
+    for n in range(1, n_components+1):
         pca.n_components = n
         fa.n_components = n
         pca_scores.append( np.mean(cross_val_score(pca, X)) )
@@ -53,16 +53,15 @@ def test_heteroscedasticity(X):
         best factor analysis estimator.
 
     """
-    n_components = np.arange(0, n_features, 5)  # options for n_components
-
-    pca_scores, fa_scores = compute_scores(X)                                       
-    best_score_pca = np.amax(pca_scores)
+    pca_scores, fa_scores = compute_scores(X, max_iter=1000000, tol=1e-8)                                       
+    
+    best_score_pca   = np.amax(pca_scores)
     n_components_pca = np.argmax(pca_scores)  
-    best_score_fa = np.amax(fa_scores)
-    n_components_fa = np.argmax(fa_scores)
+    best_score_fa    = np.amax(fa_scores)
+    n_components_fa  = np.argmax(fa_scores)
 
     results = Bunch()
     results["pca"] = (best_score_pca, n_components_pca)
-    results["fa"] = (best_score_fa, n_components_fa)
+    results["fa"]  = (best_score_fa, n_components_fa)
     
     return results
