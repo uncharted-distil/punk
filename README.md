@@ -10,6 +10,7 @@
  * If you want an exaple the annotations files are included in this repo;
    search for `*.json` files.
  * Look over the [annotation schema](https://datadrivendiscovery.org/wiki/display/gov/Primitives+Annotation+Schema)
+ * Be sure to specify not only the language but the version you are using.
  * One of the fields in the annotations filed is `uuid`, the convention we are
     using to generate these ids is:
 ```
