@@ -4,7 +4,7 @@
     "common_name": "PCA",
     "description": "Ranking of features using principal component analysis.",
     "languages": [
-        "python"
+        "python3.6"
     ],
     "library": "punk",
     "version": "0.1.0",
