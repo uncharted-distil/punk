@@ -4,7 +4,7 @@ from sklearn.model_selection import cross_val_score
 from ..utils import Bunch
 
 
-def compute_scores(X, max_iter=1000000, tol=1e-8):
+def compute_scores(X, max_iter=1000000, tol=1e-6):
     """ Compare PCA against FactorAnalysis.
 
         Code taken from 'http://scikit-learn.org/stable/auto_examples/'
@@ -23,17 +23,22 @@ def compute_scores(X, max_iter=1000000, tol=1e-8):
     fa = FactorAnalysis(max_iter=max_iter, tol=tol)
 
     pca_scores, fa_scores = [], []
-    n_components = X.shape[1] 
-    for n in range(1, n_components+1):
+    n_featues = X.shape[1] 
+    if n_featues > 20:
+        n_components = np.arange(0, n_featues+1, 5)
+    else:
+        n_components = np.arange(0, n_featues+1)
+
+    for n in n_components:
         pca.n_components = n
         fa.n_components = n
-        pca_scores.append( np.mean(cross_val_score(pca, X)) )
-        fa_scores.append( np.mean(cross_val_score(fa, X)) )
+        pca_scores.append( (np.mean(cross_val_score(pca, X)), n) )
+        fa_scores.append( (np.mean(cross_val_score(fa, X)), n) )
 
     return pca_scores, fa_scores
 
 
-def test_heteroscedasticity(X):
+def test_heteroscedasticity(X, max_iter=1000000, tol=1e-8):
     """ Test heteroscedaticity of your data.
 
     The consequence is that the likelihood of new data can be used for model
@@ -53,15 +58,10 @@ def test_heteroscedasticity(X):
         best factor analysis estimator.
 
     """
-    pca_scores, fa_scores = compute_scores(X, max_iter=1000000, tol=1e-8)                                       
+    pca_scores, fa_scores = compute_scores(X, max_iter=max_iter, tol=tol)                                       
     
-    best_score_pca   = np.amax(pca_scores)
-    n_components_pca = np.argmax(pca_scores)  
-    best_score_fa    = np.amax(fa_scores)
-    n_components_fa  = np.argmax(fa_scores)
-
     results = Bunch()
-    results["pca"] = (best_score_pca, n_components_pca)
-    results["fa"]  = (best_score_fa, n_components_fa)
+    results["pca"] = max(pca_scores, key=lambda s: s[0])
+    results["fa"]  = max(fa_scores, key=lambda s: s[0])
     
     return results
