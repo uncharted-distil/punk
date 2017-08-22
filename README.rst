@@ -12,4 +12,4 @@ Working on developing algorithms and pipelines to automate Machine Learning:
 
 Usage
 ------
-For examples on how to use these primitives look at `examples <examples>`.
+For examples on how to use these primitives look at `examples <examples>`_.
