@@ -1,4 +1,12 @@
-TA1 Primitives
-==============
+PUNK - Primitives for Uncovering New Knwoledge
+===============================================
 
-TA1 primitves for Distil.
+Working on developing algorithms and pipelines to automate Machine Learning:
+* Data augmentation
+* Feature selection
+* Novelty detection
+
+
+Usage
+------
+For examples on how to use these primitives look at "examples".
