@@ -11,7 +11,7 @@ Working on developing algorithms and pipelines to automate Machine Learning:
 
 D3M
 ----
-For submition and usage with respect to the broader D3M community see `D3M <D3M.md>`_.
+For submition and usage with respect to the broader D3M community see `D3M <d3m>`_.
 
 Usage
 ------
