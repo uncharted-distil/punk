@@ -9,6 +9,9 @@ Working on developing algorithms and pipelines to automate Machine Learning:
 
 - Novelty detection
 
+D3M
+----
+For submition and usage with respect to the broader D3M community see `D3M <D3M.md>`_.
 
 Usage
 ------

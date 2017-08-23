@@ -29,6 +29,17 @@ curl -u <username> -i -H "Content-Type: application/json" -X POST -d "@primitive
 
 
 
+# OpenStack
+* For instructions on how to use [Openstack](https://datadrivendiscovery.org/wiki/display/gov/OpenStack+Guide)
+ * [VPN](https://datadrivendiscovery.org/wiki/display/gov/Connect+to+VPN)
+
+Run `vpnc`,
+```
+ssh -l ubuntu -i {name of keypair}.pem {associated IP address for instance}
+```
+
+
+
 # PyPi: Registering this as a Python package
 `vi  ~/.pypirc`
 ```
