@@ -1,0 +1,58 @@
+[31m	Create multiple Kafka Topics for Communication between containers...(B[0m
+Created topic "consumer".
+Created topic "producer".
+consumer
+producer
+[31m	Making sure services were spun up properly...(B[0m
+  Name                 Command               State                       Ports                      
+---------------------------------------------------------------------------------------------------
+kafka       /docker-entrypoint.sh bin/ ...   Up      0.0.0.0:7203->7203/tcp, 0.0.0.0:9092->9092/tcp 
+zookeeper   bin/zkServer.sh start-fore ...   Up      2181/tcp, 2888/tcp, 3888/tcp                   
+CONTAINER ID        IMAGE                             COMMAND                  CREATED             STATUS                    PORTS                                            NAMES
+52b6c1b46230        jeqo/apache-kafka:0.10.2.0-2.11   "/docker-entrypoin..."   14 seconds ago      Up 13 seconds             0.0.0.0:7203->7203/tcp, 0.0.0.0:9092->9092/tcp   kafka
+8c1ba474cdf2        jeqo/apache-zookeeper:3.4.8       "bin/zkServer.sh s..."   15 seconds ago      Up 14 seconds (healthy)   2181/tcp, 2888/tcp, 3888/tcp                     zookeeper
+Step 1/7 : FROM alejandrox1/ubuntu_miniconda
+ ---> 7a0eb0c71019
+Step 2/7 : RUN apt-get update -y
+ ---> Using cache
+ ---> 5b37b19265ca
+Step 3/7 : COPY requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 5088e8ea2122
+Step 4/7 : WORKDIR /app
+ ---> Using cache
+ ---> ec26f666b7a6
+Step 5/7 : RUN pip install -r requirements.txt
+ ---> Using cache
+ ---> e08ab55e961d
+Step 6/7 : COPY kafka_wrapper.py .
+ ---> 35b79b963aae
+Removing intermediate container 5b42766a4897
+Step 7/7 : CMD python kafka_wrapper.py
+ ---> Running in 1c5c886702d2
+ ---> a8def1063e52
+Removing intermediate container 1c5c886702d2
+Successfully built a8def1063e52
+Successfully tagged primitives_punk:latest
+Step 1/7 : FROM alejandrox1/ubuntu_miniconda
+ ---> 7a0eb0c71019
+Step 2/7 : RUN apt-get update -y
+ ---> Using cache
+ ---> 5b37b19265ca
+Step 3/7 : COPY requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 5088e8ea2122
+Step 4/7 : WORKDIR /app
+ ---> Using cache
+ ---> ec26f666b7a6
+Step 5/7 : RUN pip install -r requirements.txt
+ ---> Using cache
+ ---> e08ab55e961d
+Step 6/7 : COPY kafka_wrapper.py .
+ ---> Using cache
+ ---> 22955764333a
+Step 7/7 : CMD python kafka_wrapper.py
+ ---> Using cache
+ ---> 480fef9d492f
+Successfully built 480fef9d492f
+Successfully tagged sampleclient_client:latest

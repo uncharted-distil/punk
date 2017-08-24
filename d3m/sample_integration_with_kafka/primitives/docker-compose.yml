@@ -1,0 +1,21 @@
+version: "3"
+networks:
+    kafka_kafkanet:
+        external: true
+
+services:
+    punk:
+        env_file: .env
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            - KAFKASERVER=${KAFKASERVER}
+            - CONSUMERTOPIC=${CONSUMERTOPIC}
+            - PRODUCERTOPIC=${PRODUCERTOPIC}
+        hostname: punk                                                         
+        container_name: punk
+        volumes:
+            - .:/app
+        networks:                                                                                                                          
+            - kafka_kafkanet
