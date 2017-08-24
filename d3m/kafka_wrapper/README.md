@@ -7,7 +7,7 @@ request.
 
 3. Build and run container as,
 ```
-sudo docker build -t <name> . && sudo docker run -d --env-file environment.env <name>
+sudo docker build -t <name> . && sudo docker run -d --env-file environment.env --name=<name> <name>
 ```
 
 4. Double check it went well
