@@ -1,10 +1,30 @@
 import os
+import json
+import numpy as np
 from kafka import KafkaProducer, KafkaConsumer
+from punk.feature_selection.rf import rfclassifier_feature_selection
 
+
+
+def convert_dict_of_np_to_lists(bunch):
+    for k, v in bunch.items():
+        if isinstance(v, np.ndarray):
+            bunch[k] = v.tolist()
+    return bunch
 
 
 def process_msg(msg):
-    return "Hello World"
+    # Load in msg
+    data = json.loads(msg)
+    data["X"] = np.array(data["X"])
+    data["y"] = np.array(data["y"])
+
+    # Run primitive
+    output = rfclassifier_feature_selection(data["X"], data["y"])
+
+    # Prepare output for producer
+    output = convert_dict_of_np_to_lists(output)
+    return json.dumps(output)
 
 
 if __name__=="__main__":

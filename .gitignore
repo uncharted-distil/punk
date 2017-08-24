@@ -1,11 +1,14 @@
 dist
 build
-distill_primitives.egg-info
+punk.egg-info
 
+References.txt
 
 # Byte-compiled / optimized / DLL files                                         
 __pycache__/                                                                    
 *.py[cod]                                                                       
                                                                                 
 # backups                                                                       
-*.sw[op]  
+*.sw[op] 
+
+.ipynb_checkpoints/ 
