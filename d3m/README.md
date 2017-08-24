@@ -1,3 +1,21 @@
+# Deployment
+
+For D3M related purposes we provide a base template [kafka_wrapper](https://github.com/NewKnowledge/punk/tree/master/d3m/kafka_wrapper).
+
+The main file in this template is [kafka_wrapper](https://github.com/NewKnowledge/punk/blob/master/d3m/kafka_wrapper/kafka_wrapper.py#L6).
+This file provides a function `process_msg` which will process an incoing
+message from a Kafka topic and will output a message for to be produced back to
+kafka.
+Thus any processing needed needs to be included in this function alone and the
+primitive should work just fine.
+
+In order to control the consumer and producer topics you will only need to
+specify these as environmental variables in [environment.env](https://github.com/NewKnowledge/punk/blob/master/d3m/kafka_wrapper/environment.env).
+
+Finally, any python dependencies go in the `requirements.txt`.
+
+For a more concise example please the sample primitive [sample_primitive_delivering_to_kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka).
+
 # [Submitting Primitives to D3M](https://datadrivendiscovery.org/wiki/display/gov/Primitive+Submission+Process)
 
 1. Fork the official [`primitives_repo`](https://gitlab.datadrivendiscovery.org/jpl/primitives_repo)
