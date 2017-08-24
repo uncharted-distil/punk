@@ -4,6 +4,7 @@ import numpy as np
 from scipy import linalg
 
 from punk.novelty_detection.heteroscedasticity import compute_scores, test_heteroscedasticity
+test_heteroscedasticity.__test__ = False
 
 
 class TestComputeScores(unittest.TestCase):
@@ -38,7 +39,6 @@ class TestTestHetero(unittest.TestCase):
         self.X_hetero = X + rng.randn(n_samples, n_features) * sigmas
                                                                                
     def test_hetero(self):
-        print(self.X_hetero)
         hetero = test_heteroscedasticity(self.X_hetero, max_iter=1000, tol=0.01)
 
         self.assertTrue( hetero["fa"][0] > -80 and hetero["fa"][0] < -70 )
