@@ -32,9 +32,9 @@ if __name__=="__main__":
     kafka_server  = os.environ.get("KAFKASERVER")
     consumerTopic = os.environ.get("CONSUMERTOPIC")
     producerTopic = os.environ.get("PRODUCERTOPIC")
-    assert kafka_server is not None
-    assert consumerTopic is not None 
-    assert producerTopic is not None
+    assert(kafka_server is not None)
+    assert(consumerTopic is not None)
+    assert(producerTopic is not None)
 
     # Create producer and consumer
     consumer = KafkaConsumer(consumerTopic, bootstrap_servers=[kafka_server])
