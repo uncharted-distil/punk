@@ -14,7 +14,11 @@ specify these as environmental variables in [environment.env](https://github.com
 
 Finally, any python dependencies go in the `requirements.txt`.
 
-For a more concise example please the sample primitive [sample_primitive_delivering_to_kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka).
+**For a more concise example please the sample primitive [sample_primitive_delivering_to_kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka).
+
+For a complete dev envirnment (Dockerized primitive + Kafka) you can check  out 
+[sample_primitive_delivering_to_kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka)**
+
 
 # [Submitting Primitives to D3M](https://datadrivendiscovery.org/wiki/display/gov/Primitive+Submission+Process)
 
