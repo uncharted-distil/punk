@@ -29,9 +29,9 @@ def process_msg(msg):
 
 if __name__=="__main__":
     # Connect to Kafka via env vars
-    kafka_server  = os.environ.get(KAFKASERVER)
-    consumerTopic = os.environ.get(CONSUMERTOPIC)
-    producerTopic = os.environ.get(PRODUCERTOPIC)
+    kafka_server  = os.environ.get("KAFKASERVER")
+    consumerTopic = os.environ.get("CONSUMERTOPIC")
+    producerTopic = os.environ.get("PRODUCERTOPIC")
     assert kafka_server is not None
     assert consumerTopic is not None 
     assert producerTopic is not None
