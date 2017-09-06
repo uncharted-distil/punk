@@ -1,6 +1,8 @@
 import numpy as np
 from sklearn.decomposition import PCA
 from ..utils import Bunch
+from ..base import DataCleaningPrimitiveBase
+
 
 
 def pca_feature_selection(X):
@@ -53,3 +55,28 @@ def pca_feature_selection(X):
     rankings["explained_variance_ratio"] = pca.explained_variance_ratio_
 
     return rankings
+
+
+class PCAFeatures(DataCleaningPrimitiveBase):
+
+    def fit(self, intype, data):
+        assert(intype=="matrix")
+
+        pca = PCA()
+        pca.fit_transform(X)
+
+        self.components_ = pca.components_
+        self.explained_variance_ratio_ = pca.explained_variance_ratio_
+
+        M = np.absolute(pca.components_.T)
+        # Rank features based on contribtuions to 1st PC
+        self.importance_on1stpc = np.argsort(M[:,0], axis=0)[::-1]
+        # Rank features based on contributions to PCs 
+        self.importance_onallpcs = np.argmax(M, axis=0)
+
+        return self
+
+    def transform(self, data=None):
+        raise NotImplementedError(
+            "PCA Features does not perform any transformation."
+        )
