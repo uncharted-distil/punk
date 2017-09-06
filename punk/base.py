@@ -1,7 +1,7 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 
-class PrimitiveBase(metaclass=ABCMeta):
+class PrimitiveBase(ABC):
     """
     A base class for all TA1 primitives.
     """
