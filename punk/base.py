@@ -11,9 +11,10 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
     
     def __init__(self):
         """ Initializes the featurization primitive.
-        All primitives should specify all the hyper-parameters that can be set at the class
-        level in their ``__init__`` as explicit keyword arguments (no ``*args`` or ``**kwargs``).
-        Available hyper-parameters should be specified in primitive’s D3M annotation.
+        All primitives should specify all the hyper-parameters that can be set 
+        at the class level in their ``__init__`` as explicit keyword arguments 
+        (no ``*args`` or ``**kwargs``). Available hyper-parameters should be 
+        specified in primitive’s D3M annotation.
         """
         self._out_type = None
 
