@@ -146,14 +146,14 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
 
         Parameters
         ----------
-        data : list
+        data : array-like
             optional argument, used in cases where the original input data was
             used to train model, and transformation will now be performed on a
             new set of data
 
         Returns
         -------
-        transformed_data : list or dict
+        transformed_data : array-like
         """
 
 
