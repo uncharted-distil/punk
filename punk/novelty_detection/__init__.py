@@ -1,7 +1,6 @@
-from .heteroscedasticity import compute_scores, test_heteroscedasticity
+from .heteroscedasticity import HeteroscedasticityTest, compute_scores, test_heteroscedasticity
 
 
 __all__ = [
-    "compute_scores",
-    "test_heteroscedasticity",
+    "HeteroscedasticityTest",
 ]
