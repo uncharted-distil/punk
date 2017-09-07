@@ -117,7 +117,7 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
 
             "matrix" : numpy.array
 
-            "dataset": list
+            "dataset": array-like
                 a tabular data structure, where the first row is a list of
                 column headers
 
@@ -135,7 +135,7 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
                 ["blue", "2017-02-01", [3.25,5.5]]
             ]
 
-        data : list
+        data : array-like
             The input in the specified format. 
         """
 
