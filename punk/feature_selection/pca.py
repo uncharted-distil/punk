@@ -62,6 +62,7 @@ class PCAFeatures(DataCleaningPrimitiveBase):
         return self
 
     def transform(self, data=None):
-        raise NotImplementedError(
-            "PCA Features does not perform any transformation."
-        )
+        return {
+            "importance_on1stpc": self.importance_on1stpc,
+            "importance_onallpcs": self.importance_onallpcs
+        }

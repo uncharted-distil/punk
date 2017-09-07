@@ -116,7 +116,5 @@ class RFFeatures(DataCleaningPrimitiveBase):
         return self
 
 
-    def transform(self, data=None):                                             
-        raise NotImplementedError(                                              
-            "RFC Features does not perform any transformation."                 
-        )
+    def transform(self, data=None):
+        return self.indices
