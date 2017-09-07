@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split 
 
 from punk.feature_selection import PCAFeatures 
-from punk.feature_selection import RFFeatures, rfregressor_feature_selection
+from punk.feature_selection import RFFeatures
 
 
 class TestPCA(unittest.TestCase):                                                
