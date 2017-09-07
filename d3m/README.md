@@ -1,22 +1,25 @@
 # Deployment
 ## Integration with Apache Kafka
-For D3M related purposes we provide a base template [kafka_wrapper](https://github.com/NewKnowledge/punk/tree/master/d3m/kafka_wrapper).
+For D3M related purposes we provide a template, [kafka_wrapper](https://github.com/NewKnowledge/punk/tree/master/d3m/kafka_wrapper), for using primitives with Kafka.
 
 The main file in this template is [kafka_wrapper.py](https://github.com/NewKnowledge/punk/blob/master/d3m/kafka_wrapper/kafka_wrapper.py#L6).
-This file provides a function `process_msg` which will process an incoing
-message from a Kafka topic and will output a message for to be produced back to
+This file provides the function `process_msg` which will process an incoing
+message from a Kafka topic and will output a message to be produced back to
 kafka.
-Thus any processing needed needs to be included in this function alone and the
-primitive should work just fine.
+Thus any processing needed needs to be done within this function alone.
 
 In order to control the consumer and producer topics you will only need to
 specify these as environmental variables in [environment.env](https://github.com/NewKnowledge/punk/blob/master/d3m/kafka_wrapper/environment.env).
 
 Finally, any python dependencies go in the `requirements.txt`.
 
-**For a more concise example please the sample primitive [sample_primitive_delivering_to_kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka).**
+**For a more concise example on how to use `kafka wrapper` please the sample included in [sample primitive delivering to kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka).**
 
-**For a complete dev envirnment (Dockerized primitive + Kafka) you can check  out [sample_primitive_delivering_to_kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka)**
+**For a complete dev envirnoment (Dockerized primitive + Kafka) you can check  out [sample integration with kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka)** In this example, you will have an end-to-end environment for development. There are three componenets to it:
+* `Kafka`: Dockerized Kafka cluster
+* `Primitive`: Sample on how to use a primitive in this context. See [sample primitive delivering to kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka).
+* `sample client`: A small python app which will send a dataset to be consumed
+  by a primitive and consequently wait for a response to be sent back.  
 
 
 # [Submitting Primitives to D3M](https://datadrivendiscovery.org/wiki/display/gov/Primitive+Submission+Process)
