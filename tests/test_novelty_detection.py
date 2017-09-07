@@ -3,8 +3,7 @@ import unittest
 import numpy as np
 from scipy import linalg
 
-from punk.novelty_detection.heteroscedasticity import compute_scores, test_heteroscedasticity
-test_heteroscedasticity.__test__ = False
+from punk.novelty_detection import HeteroscedasticityTest
 
 
 class TestComputeScores(unittest.TestCase):
@@ -19,15 +18,15 @@ class TestComputeScores(unittest.TestCase):
         self.X_hetero = X + rng.randn(n_samples, n_features) * sigmas
 
     def test_compute_scores(self):
-        pca, fa = compute_scores(self.X_hetero, max_iter=1000, tol=0.01)
+        scores = HeteroscedasticityTest(max_iter=1000, tol=0.01)
+        pca, fa = scores.compute_scores(self.X_hetero)
 
-        pca = np.array(pca)
-        fa = np.array(fa)
+        pca, fa = np.array(pca), np.array(fa)
         self.assertTrue( np.all(np.isfinite(pca)) ) 
         self.assertTrue( np.all(np.isfinite(fa)) )
 
 
-class TestTestHetero(unittest.TestCase):                                                
+class TestHetero(unittest.TestCase):                                                
     def setUp(self):    
         n_samples, n_features, rank = 1000, 50, 10
         sigma = 1.0
@@ -39,9 +38,10 @@ class TestTestHetero(unittest.TestCase):
         self.X_hetero = X + rng.randn(n_samples, n_features) * sigmas
                                                                                
     def test_hetero(self):
-        hetero = test_heteroscedasticity(self.X_hetero, max_iter=1000, tol=0.01)
+        hetero = HeteroscedasticityTest(max_iter=1000, tol=0.01)
+        hetero = hetero.fit("matrix", self.X_hetero)
 
-        self.assertTrue( hetero["fa"][0] > -80 and hetero["fa"][0] < -70 )
-        self.assertTrue( hetero["fa"][1] == 10 )
-        self.assertTrue( hetero["pca"][0] > -80 and hetero["pca"][0] < -70)
-        self.assertTrue( hetero["pca"][1] >= 40 ) 
+        self.assertTrue( hetero.fa[0] > -80 and hetero.fa[0] < -70 )
+        self.assertTrue( hetero.fa[1] == 10 )
+        self.assertTrue( hetero.pca[0] > -80 and hetero.pca[0] < -70)
+        self.assertTrue( hetero.pca[1] >= 40 ) 
