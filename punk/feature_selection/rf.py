@@ -180,6 +180,7 @@ class RFFeatures(DataCleaningPrimitiveBase):
             ([n_samples, n_features], [n_samples, n_features]) corresponding to
             training data and labels.
         """               
+        # Check data format
         if isinstance(intype, list) or isinstance(intype, tuple):
             assert(intype[0]=="matrix")
             assert(intype[1]=="matrix")
@@ -189,6 +190,7 @@ class RFFeatures(DataCleaningPrimitiveBase):
         # Unpack data
         X, y = data
 
+        # Chose classfier or regressor
         if self.problem_type=="classification":
             rf = Pipeline([('clf', RandomForestClassifier(random_state=1))])    
         elif self.problem_type=="regression":
@@ -197,20 +199,20 @@ class RFFeatures(DataCleaningPrimitiveBase):
             raise ValueError("problem_type must be 'classification' or
                              'regression'.")
 
-        param_grid = [{'clf__n_estimators': [10, 100, 1000, 10000]},]                                                                           
-                                                                                
+        # Gridsearch for hyperparam optimization
+        param_grid = [{'clf__n_estimators': [10, 100, 1000, 10000]},]                                          
         gs_rf = GridSearchCV(rf,                                                    
                              param_grid, 
                              cv      = self.cv,
-                             scoring = scoring,                                     
+                             scoring = self.scoring,                                     
                              verbose = self.verbose,                                           
                              n_jobs  = self.n_jobs)                                           
         gs_rf.fit(X, y)                                                             
                                                                                 
         # Rank from most to least important features (0, d-1)                       
-        importances = gs_rf.best_estimator_.named_steps["clf"].feature_importances_ 
-        self.indices = np.argsort(importances)[::-1]                         
-        self.feature_importances = importances 
+        self.feature_importances = \
+                gs_rf.best_estimator_.named_steps["clf"].feature_importances_
+        self.indices = np.argsort(self.feature_importances)[::-1]                         
 
         return self
 
@@ -219,6 +221,3 @@ class RFFeatures(DataCleaningPrimitiveBase):
         raise NotImplementedError(                                              
             "RFC Features does not perform any transformation."                 
         )
-
-
-
