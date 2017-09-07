@@ -45,3 +45,5 @@ cd sample_client/
 docker-compose down --remove-orphans --volumes  | tee -a ${logs}/build.out      
 docker-compose up --build -d | tee -a ${logs}/build.out 
 cd ../
+
+docker ps

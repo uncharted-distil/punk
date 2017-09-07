@@ -13,9 +13,9 @@ def process_msg(msg):
     data["y"] = np.array(data["y"])
 
     # Run primitive
-    rf = RFFeatures(problem_type="classification", cv=3,                    
-                    scoring="accuracy", verbose=0, n_jobs=1)               
-    rf.fit(("matrix", "matrix"), (self.X, self.y))                          
+    rf = RFFeatures(problem_type="regression", cv=3,                    
+                    scoring="r2", verbose=0, n_jobs=1)               
+    rf.fit(("matrix", "matrix"), (data["X"], data["y"]))                          
     indices = rf.transform()
 
     # Prepare output for producer

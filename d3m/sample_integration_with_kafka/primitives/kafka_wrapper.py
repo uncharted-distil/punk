@@ -2,15 +2,8 @@ import os
 import json
 import numpy as np
 from kafka import KafkaProducer, KafkaConsumer
-from punk.feature_selection.rf import rfregressor_feature_selection
+from punk.feature_selection import RFFeatures
 
-
-
-def convert_dict_of_np_to_lists(bunch):
-    for k, v in bunch.items():
-        if isinstance(v, np.ndarray):
-            bunch[k] = v.tolist()
-    return bunch
 
 
 def process_msg(msg):
@@ -20,18 +13,20 @@ def process_msg(msg):
     data["y"] = np.array(data["y"])
 
     # Run primitive
-    output = rfregressor_feature_selection(data["X"], data["y"])
+    rf = RFFeatures(problem_type="regression", cv=3,                    
+                    scoring="r2", verbose=0, n_jobs=1)               
+    rf.fit(("matrix", "matrix"), (data["X"], data["y"]))                          
+    indices = rf.transform()
 
     # Prepare output for producer
-    output = convert_dict_of_np_to_lists(output)
-    return json.dumps(output)
+    return json.dumps(indices.tolist())
 
 
 if __name__=="__main__":
     # Connect to Kafka via env vars
-    kafka_server  = os.environ.get("KAFKASERVER", "kafka:9092")
-    consumerTopic = os.environ.get("CONSUMERTOPIC", "consumer")
-    producerTopic = os.environ.get("PRODUCERTOPIC", "producer")
+    kafka_server  = os.environ.get("KAFKASERVER")
+    consumerTopic = os.environ.get("CONSUMERTOPIC")
+    producerTopic = os.environ.get("PRODUCERTOPIC")
     assert(kafka_server is not None)
     assert(consumerTopic is not None)
     assert(producerTopic is not None)
@@ -45,9 +40,6 @@ if __name__=="__main__":
         
         # process incomgin msg and produce outgoing msg
         outgoing = process_msg(incomingMsg)
-
-        with open("client_test.txt", "w") as f:                                 
-            f.write(incomingMsg + '\n')
 
         # Send outgoing msg
         outgoingMsg = producer.send(producerTopic, outgoing.encode('utf-8'))
