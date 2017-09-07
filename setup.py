@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name="punk",
 
-    version="1.0.0",
+    version="1.0.1",
 
     description="Primitives for Uncovering New Knowledge.",
     long_description="Machine Learning pipeline elements.",
