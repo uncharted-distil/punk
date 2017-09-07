@@ -97,16 +97,15 @@ class HeteroscedasticityTest(DataCleaningPrimitiveBase):
         """
         assert(intype=="matrix")
 
-        pca_scores, fa_scores = self.compute_scores(data, self.max_iter, self.tol)
+        self.pca_scores, self.fa_scores = self.compute_scores(data, self.max_iter, self.tol)
 
-        self.pca = max(pca_scores, key=lambda s: s[0])
-        self.fa  = max(fa_scores, key=lambda s: s[0])
+        self.pca = max(self.pca_scores, key=lambda s: s[0])
+        self.fa  = max(self.fa_scores, key=lambda s: s[0])
 
         return self
 
 
-    @staticmethod
-    def compute_scores(X, max_iter=1000000, tol=1e-6):                              
+    def compute_scores(self, X, max_iter=1000000, tol=1e-6):                              
         """ Compare PCA against FactorAnalysis.                                     
                                                                                 
         Code taken from 'http://scikit-learn.org/stable/auto_examples/'             
