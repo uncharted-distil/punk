@@ -1,8 +1,8 @@
 # Deployment
-
+## Integration with Apache Kafka
 For D3M related purposes we provide a base template [kafka_wrapper](https://github.com/NewKnowledge/punk/tree/master/d3m/kafka_wrapper).
 
-The main file in this template is [kafka_wrapper](https://github.com/NewKnowledge/punk/blob/master/d3m/kafka_wrapper/kafka_wrapper.py#L6).
+The main file in this template is [kafka_wrapper.py](https://github.com/NewKnowledge/punk/blob/master/d3m/kafka_wrapper/kafka_wrapper.py#L6).
 This file provides a function `process_msg` which will process an incoing
 message from a Kafka topic and will output a message for to be produced back to
 kafka.
