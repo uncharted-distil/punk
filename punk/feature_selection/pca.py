@@ -98,7 +98,7 @@ class PCAFeatures(DataCleaningPrimitiveBase):
         assert(intype=="matrix")
 
         pca = PCA()
-        pca.fit_transform(X)
+        pca.fit_transform(data)
 
         self.components_ = pca.components_
         self.explained_variance_ratio_ = pca.explained_variance_ratio_
