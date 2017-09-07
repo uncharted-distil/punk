@@ -109,7 +109,7 @@ def rfregressor_feature_selection(X, y, cv=3):
 
 class RFFeatures(DataCleaningPrimitiveBase):
 
-    def __init__(self, problem_type, Cv=3, scoring="accuracy", verbose=0, n_jobs=1):
+    def __init__(self, problem_type, scoring, cv=3, verbose=0, n_jobs=1):
         """
         Params
         ------
@@ -154,14 +154,14 @@ class RFFeatures(DataCleaningPrimitiveBase):
             Controls the verbosity: the higher, the more messages.
         """
         self.problem_type = problem_type
+        self.scoring = scoring
         self.cv      = cv
         self.n_jobs  = n_jobs
-        self.scoring = scoring
         self.verbose = verbose
 
 
     def fit(self, intype, data):
-    	""" Rank features using Random Forest classifier.                           
+        """ Rank features using Random Forest classifier.                           
                                                                                 
 	Use GridSearchCV to optimize the scoring method for a random forest         
     	classifier and return the importance of the features.    
@@ -179,9 +179,9 @@ class RFFeatures(DataCleaningPrimitiveBase):
         data : tuple of arrays 
             ([n_samples, n_features], [n_samples, n_features]) corresponding to
             training data and labels.
-        """               
+        """
         # Check data format
-        if isinstance(intype, list) or isinstance(intype, tuple):
+        if isinstance(intype, (list, tuple)):
             assert(intype[0]=="matrix")
             assert(intype[1]=="matrix")
         else:
@@ -196,8 +196,9 @@ class RFFeatures(DataCleaningPrimitiveBase):
         elif self.problem_type=="regression":
             rf = Pipeline([('clf', RandomForestRegressor(random_state=1))])
         else:
-            raise ValueError("problem_type must be 'classification' or
-                             'regression'.")
+            raise ValueError(
+                "problem_type must be 'classification' or 'regression'."
+            )
 
         # Gridsearch for hyperparam optimization
         param_grid = [{'clf__n_estimators': [10, 100, 1000, 10000]},]                                          
