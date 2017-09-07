@@ -19,7 +19,7 @@ class TestPCA(unittest.TestCase):
                                                                                 
     def test_pca(self):
         rankings = PCAFeatures()
-        rankings.fit("matrix", self.X)
+        rankings.fit(["matrix"], self.X)
 
         self.assertTrue( np.all(np.isfinite( rankings.components_ )) )
         self.assertTrue( np.all(np.isfinite( rankings.explained_variance_ratio_ )) )

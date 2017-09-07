@@ -83,7 +83,7 @@ class RFFeatures(DataCleaningPrimitiveBase):
             assert(intype[0]=="matrix")
             assert(intype[1]=="matrix")
         else:
-            raise ValueError("Expected Two numpy arrays as input.")
+            raise ValueError("Fit expected Two 'matrix's as intype.")
         
         # Unpack data
         X, y = data

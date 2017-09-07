@@ -42,7 +42,10 @@ class PCAFeatures(DataCleaningPrimitiveBase):
         data : array-like, [n_samples, n_features]
             Training data.
         """  
-        assert(intype=="matrix")
+        if isinstance(intype, (list, tuple)):
+            assert(intype[0]=="matrix")
+        else:
+            raise ValueError("Fit expected a 'matrix' an a intype.")
 
         pca = PCA()
         pca.fit_transform(data)

@@ -30,7 +30,10 @@ class HeteroscedasticityTest(DataCleaningPrimitiveBase):
         "fa" returns a two tuple of number of componenets and likelihood for 
         best factor analysis estimator.
         """
-        assert(intype=="matrix")
+        if isinstance(intype, (list, tuple)):
+            assert(intype[0]=="matrix")                   
+        else:                                                                   
+            raise ValueError("Fit expected a 'matrix' as intype.")
 
         self.pca_scores, self.fa_scores = self.compute_scores(data, self.max_iter, self.tol)
 

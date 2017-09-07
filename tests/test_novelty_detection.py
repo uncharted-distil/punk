@@ -19,7 +19,7 @@ class TestHetero(unittest.TestCase):
                                                                                
     def test_hetero(self):
         hetero = HeteroscedasticityTest(max_iter=1000, tol=0.01)
-        hetero = hetero.fit("matrix", self.X_hetero)
+        hetero = hetero.fit(["matrix"], self.X_hetero)
 
         self.assertTrue( hetero.fa[0] > -80 and hetero.fa[0] < -70 )
         self.assertTrue( hetero.fa[1] == 10 )
