@@ -2,15 +2,8 @@ import os
 import json
 import numpy as np
 from kafka import KafkaProducer, KafkaConsumer
-from punk.feature_selection.rf import rfclassifier_feature_selection
+from punk.feature_selection import RFFeatures
 
-
-
-def convert_dict_of_np_to_lists(bunch):
-    for k, v in bunch.items():
-        if isinstance(v, np.ndarray):
-            bunch[k] = v.tolist()
-    return bunch
 
 
 def process_msg(msg):
@@ -20,11 +13,13 @@ def process_msg(msg):
     data["y"] = np.array(data["y"])
 
     # Run primitive
-    output = rfclassifier_feature_selection(data["X"], data["y"])
+    rf = RFFeatures(problem_type="classification", cv=3,                    
+                    scoring="accuracy", verbose=0, n_jobs=1)               
+    rf.fit(("matrix", "matrix"), (self.X, self.y))                          
+    indices = rf.transform()
 
     # Prepare output for producer
-    output = convert_dict_of_np_to_lists(output)
-    return json.dumps(output)
+    return json.dumps(indices.tolist())
 
 
 if __name__=="__main__":
