@@ -7,9 +7,8 @@ from sklearn import datasets
 from sklearn.preprocessing import StandardScaler 
 from sklearn.model_selection import train_test_split 
 
-from punk.feature_selection.pca import pca_feature_selection
-from punk.feature_selection.rf import (rfclassifier_feature_selection,
-                                       rfregressor_feature_selection)
+from punk.feature_selection import PCAFeatures 
+from punk.feature_selection import RFFeatures, rfregressor_feature_selection
 
 
 class TestPCA(unittest.TestCase):                                                
@@ -19,10 +18,11 @@ class TestPCA(unittest.TestCase):
         self.X = sc.fit_transform(iris.data)
                                                                                 
     def test_pca(self):
-        rankings = pca_feature_selection(self.X)      
+        rankings = PCAFeatures()
+        rankings.fit("matrix", self.X)
 
-        self.assertTrue( np.all(np.isfinite( rankings.components )) )
-        self.assertTrue( np.all(np.isfinite( rankings.explained_variance_ratio )) )
+        self.assertTrue( np.all(np.isfinite( rankings.components_ )) )
+        self.assertTrue( np.all(np.isfinite( rankings.explained_variance_ratio_ )) )
         self.assertTrue( np.array_equal(rankings.importance_on1stpc, np.array([2, 3, 0, 1])) )
         self.assertTrue( np.array_equal(rankings.importance_onallpcs, np.array([2, 1, 0, 2])) )
 
@@ -37,7 +37,9 @@ class TestRFC(unittest.TestCase):
 
 
     def test_rfc(self):
-        rfc = rfclassifier_feature_selection(self.X, self.y)
+        rfc = RFFeatures(problem_type="classification", cv=3, 
+                         scoring="accuracy", verbose=0, n_jobs=1)
+        rfc.fit(("matrix", "matrix"), (self.X, self.y))
                            
         self.assertTrue( np.all(np.isfinite( rfc.feature_importances )) )
         importances = np.array([9, 12, 6, 11, 0, 10, 5, 3, 1, 8, 4, 7, 2])
