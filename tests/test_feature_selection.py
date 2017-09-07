@@ -52,7 +52,9 @@ class TestRFR(unittest.TestCase):
         self.X, self.y = boston.data, boston.target
 
     def test_rfr(self):
-        rfr = rfregressor_feature_selection(self.X, self.y)
+        rfr = RFFeatures(problem_type="regression", cv=3,
+                         scoring="r2", verbose=0, n_jobs=1)
+        rfr.fit(("matrix", "matrix"), (self.X, self.y))
 
         self.assertTrue( np.all(np.isfinite( rfr.feature_importances )) )
         importances = np.array([5, 12, 7, 0, 4, 10, 9, 6, 11, 2, 8, 1, 3])
