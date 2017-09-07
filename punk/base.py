@@ -101,24 +101,25 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
             "integer" : integer
 
             "text" : str
-                a document (longer text)
+                Document (longer text)
 
             "label" : string
                 1-2 word category label
 
             "dateTime" : datetime or str
-                a Python datetime object, or dateTime-formatted string
+                Python datetime object, or dateTime-formatted string
 
             "location" : str
-                represents a real-world location
+                Represents a real-world location
 
             "coordinatePair" : str
-                a latitude,longitude pair, e.g. "10.27,-30.45"
+                Latitude, longitude pair, e.g. "10.27,-30.45"
 
-            "matrix" : numpy.array
+            "matrix" : array-like
+                Numpy.ndarray or list.
 
             "dataset": array-like
-                a tabular data structure, where the first row is a list of
+                Tabular data structure, where the first row is a list of
                 column headers
 
             Each primitive should specify applicable input data formats in its
@@ -126,7 +127,7 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
             arbitrarily complex, including nested structures. 
             For example: 
 
-            ["label", "dateTime", ["float","float"]]
+            ["matrix, [""label", "dateTime", ["float","float"]]]
 
             Would correspond to the structure:
 
