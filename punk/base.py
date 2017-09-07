@@ -92,7 +92,7 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
 
         Parameters
         ----------
-        intype : str
+        intype : array-like
             A matrix specifying the format of the input data.
 
             Possible intype formats are:
@@ -115,7 +115,7 @@ class DataCleaningPrimitiveBase(PrimitiveBase):
             "coordinatePair" : str
                 a latitude,longitude pair, e.g. "10.27,-30.45"
 
-            "matrix" : numpy.matrix
+            "matrix" : numpy.array
 
             "dataset": list
                 a tabular data structure, where the first row is a list of
