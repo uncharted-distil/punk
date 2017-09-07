@@ -77,7 +77,5 @@ class HeteroscedasticityTest(DataCleaningPrimitiveBase):
         return pca_scores, fa_scores
 
 
-    def transform(self, data=None):                                             
-        raise NotImplementedError(
-            "Heteroscedasticity Test does not perform any transformation."                 
-        )
+    def transform(self, data=None):                                            
+        return {"pca": self.pca, "fa": self.fa}
