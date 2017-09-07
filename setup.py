@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name="punk",
 
-    version="0.1.1",
+    version="1.0.0",
 
     description="Primitives for Uncovering New Knowledge.",
     long_description="Machine Learning pipeline elements.",
@@ -17,17 +17,20 @@ setup(
     license="MIT",
 
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
 
         "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
 
         # Pick your license as you wish (should match "license" above)
         "License :: OSI Approved :: MIT License",
 
         "Programming Language :: Python :: 3.6",
+
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
 
-    keywords="TA1 primitive",
+    keywords="TA1 primitive, feature selection, novelty detection",
 
 
     packages=find_packages(exclude=['tests']),
