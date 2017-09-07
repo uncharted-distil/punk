@@ -1,4 +1,4 @@
-from .heteroscedasticity import HeteroscedasticityTest, compute_scores, test_heteroscedasticity
+from .heteroscedasticity import HeteroscedasticityTest
 
 
 __all__ = [
