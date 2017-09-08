@@ -14,7 +14,7 @@ specify these as environmental variables in [environment.env](https://github.com
 Finally, any python dependencies go in the `requirements.txt`.
 
 
-**For a complete dev envirnoment (Dockerized primitive + Kafka) you can check  out [sample integration with kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka)** In this example, you will have an end-to-end environment for development. There are three componenets to it:
+**For a complete dev envirnoment (Dockerized + primitive + Kafka) you can check  out [sample integration with kafka](https://github.com/NewKnowledge/punk/tree/master/d3m/sample_primitive_delivering_to_kafka)** In this example, you will have an end-to-end environment for development. There are three componenets to it:
 * `Kafka`: Dockerized Kafka cluster
 * `Primitive`: Sample on how to use a primitive in this context. See [kafka wrapper](https://github.com/NewKnowledge/punk/tree/master/d3m/kafka_wrapper).
 * `sample client`: A small python app which will send a dataset to be consumed
