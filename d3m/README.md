@@ -50,7 +50,8 @@ curl -u <username> -i -H "Content-Type: application/json" -X POST -d "@primitive
 ```
 5. Last step, go back to the [`primitives_repo`](https://gitlab.datadrivendiscovery.org/jpl/primitives_repo) and create a merge request against the master branch.
 
-
+# [Submitted Primitives By Team](https://datadrivendiscovery.org/wiki/pages/viewpage.action?pageId=9765132)
+Once primitives are submited go and update this page.
 
 # OpenStack
 * For instructions on how to use [Openstack](https://datadrivendiscovery.org/wiki/display/gov/OpenStack+Guide)
