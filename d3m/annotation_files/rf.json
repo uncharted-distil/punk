@@ -1,19 +1,19 @@
 {
-    "id": "f7543334-97f7-3c43-978d-2d0b03829d4d",
-    "name": "punk.feature_selection.pca.PCAFeatures",
-    "common_name": "PCAFeatures",
-    "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
+    "id": "fa654741-8ab9-39ec-a9a7-3d41aaf67932",
+    "name": "punk.feature_selection.rf.RFFeatures",
+    "common_name": "RFFeatures",
+    "description": "Ranking of features using Random Forest.",
     "languages": [
         "python3.6"
     ],
     "library": "punk",
     "version": "1.0.1",
-    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/pca.py",
+    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/rf.py",
     "is_class": true,
     "parameters": [],
     "methods_available": [
         {
-            "id": "punk.feature_selection.pca.PCAFeatures.fit",
+            "id": "punk.feature_selection.rf.RFFeatures.fit",
             "returns": {
                 "type": "object",
                 "name": "self",
@@ -39,13 +39,13 @@
             "name": "fit"
         },
         {
-            "id": "punk.feature_selection.pca.PCAFeatures.transform",
+            "id": "punk.feature_selection.rf.RFFeatures.transform",
             "returns": {
-                "type": "dict",
-                "name": "importances",
-                "description": "Feature rankings."
+                "type": "array-like",
+                "name": "indices",
+                "description": "Indices based on feature importnaces."
             },
-            "description": "'Feature rankings based on input data.",
+            "description": "Feature rankings based on input data.",
             "parameters": [],
             "name": "transform" 
         }
@@ -53,27 +53,17 @@
     "attributes": [
         {
             "type": "array-like",
-            "name": "components_",
-            "description": "Principal axes in feature space, representing the directions of maximum variance in the data. The components are sorted by explained_variance_."
+            "name": "feature_importances",
+            "description": "The feature importances (the higher, the more important the feature)."
         },
         {
             "type": "array-like",
-            "name": "explained_variance_ratio_",
-            "description": "The amount of variance explained by each of the selected components. Equal to n_components largest eigenvalues of the covariance matrix of X."
-        },
-        {
-            "type": "array-like",
-            "name": "importance_on1stpc",
-            "description": "corresponds to the indices of most important features for the first principal. Component are in ascending order (most important feature 0, least important feature n_features-1)."
-        },
-        {
-            "type": "array-like",
-            "name": "importance_onallpcs",
-            "description": "corresponds to the indices of the one most important feature for each principal components."
+            "name": "indices",
+            "description": "Feature indices based on feature importances."
         }
     ],
     "algorithm_type": [                                                         
-        "dimensionality reduction"                                              
+        "decision tree"                                              
     ],
     "task_type": [
         "feature extraction"
