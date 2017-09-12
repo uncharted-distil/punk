@@ -10,7 +10,33 @@
     "version": "1.0.1",
     "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/rf.py",
     "is_class": true,
-    "parameters": [],
+    "parameters": [
+        {
+            "type": "str",                                               
+            "name": "problem_type",
+            "is_hyperparameter": false
+        },
+        {
+            "type": "str",
+            "name": "scoring",
+            "is_hyperparameter": true
+        },
+        {
+            "type": "int",
+            "name": "cv",
+            "is_hyperparameter": false
+        },
+        {
+            "type": "int",
+            "name": "verbose",
+            "is_hyperparameter": false
+        },
+        {
+            "type": "int",
+            "name": "n_jobs",
+            "is_hyperparameter": false
+        }
+    ],
     "methods_available": [
         {
             "id": "punk.feature_selection.rf.RFFeatures.fit",
