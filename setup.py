@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name="punk",
 
-    version="1.0.1",
+    version="1.0.2",
 
     description="Primitives for Uncovering New Knowledge.",
     long_description="Machine Learning pipeline elements.",
@@ -12,7 +12,7 @@ setup(
     url="https://github.com/NewKnowledge/punk",
 
     author="New Knowledge",
-    author_email="alarcj137@gmail.com",
+    author_email="support@newknowledge.io",
 
     license="MIT",
 
