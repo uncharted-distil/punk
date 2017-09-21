@@ -1,12 +1,37 @@
 import numpy as np
 from sklearn.decomposition import PCA
-from ..base import DataCleaningPrimitiveBase
+from typing import NamedTuple, List
+# from ..base import DataCleaningPrimitiveBase
+from primitive_interfaces.base import PrimitiveBase
 
+Input = np.ndarray
+Output = List[int]
+Params = NamedTuple('Params', ())
+CallMetadata = NamedTuple('CallMetadata', ())
 
-class PCAFeatures(DataCleaningPrimitiveBase):
+class PCAFeatures(PrimitiveBase[Input, Output, Params]):
 
-    def fit(self, intype, data):
-        """ Do PCA and return the ranked features.                                  
+    def __init__(self) -> None:
+        pass
+
+    def fit(self) -> None:
+        pass
+
+    def set_training_data(self, inputs: Input) -> None:
+        pass
+
+    def get_params(self) -> Params:
+        return self.Params()
+
+    def set_params(self, params: Params) -> None:
+        pass
+
+    def get_call_metadata(self) -> CallMetadata:
+        return self.CallMetadata()
+
+    def produce(self, inputs: Input) -> Output:
+        """ Perform PCA and return a list of the indices of the most important
+        features, ordered by contribution to first PCA component
                                                                                 
         The matrix M will correspond to the absolute value of the components of 
         the decomposiiton thus giving a matrix where each column corresponds to 
@@ -29,40 +54,25 @@ class PCAFeatures(DataCleaningPrimitiveBase):
         features for the first principal. Component are in ascending order      
         (most important feature 0, least important feature n_features-1).       
                                                                                 
-        "importance_onallpcs" corresponds to the indices of the one most        
-        important feature for each principal components.                        
-                                                                                
-        "explained_variance_ratio" Percentage of variance explained by each of  
-        the selected components.                                                
         
         Params 
         ------- 
-        intype : str
-            Expect ``matrix``.
-        data : array-like, [n_samples, n_features]
+        data : np.ndarray, [n_samples, n_features]
             Training data.
-        """  
-        if isinstance(intype, (list, tuple)):
-            assert(intype[0]=="matrix")
-        else:
-            raise ValueError("Fit expected a 'matrix' an a intype.")
+        """
 
         pca = PCA()
-        pca.fit_transform(data)
 
-        self.components_ = pca.components_
-        self.explained_variance_ratio_ = pca.explained_variance_ratio_
+        try:
+            pca.fit_transform(inputs)
 
-        M = np.absolute(pca.components_.T)
-        # Rank features based on contribtuions to 1st PC
-        self.importance_on1stpc = np.argsort(M[:,0], axis=0)[::-1]
-        # Rank features based on contributions to PCs 
-        self.importance_onallpcs = np.argmax(M, axis=0)
+            M = np.absolute(pca.components_.T)
 
-        return self
+            # Rank features based on contribtuions to 1st PC
+            self.importance_on1stpc = np.argsort(M[:,0], axis=0)[::-1]
+        except:
+            # If any error occurs, just return indices in original order
+            # In the future we should consider a better error handling strategy
+            self.importance_on1stpc = [i for i in range(inputs.shape[0])]
 
-    def transform(self, data=None):
-        return {
-            "importance_on1stpc": self.importance_on1stpc,
-            "importance_onallpcs": self.importance_onallpcs
-        }
+        return self.importance_on1stpc

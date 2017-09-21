@@ -19,18 +19,13 @@ class TestPCA(unittest.TestCase):
                                                                                 
     def test_pca(self):
         rankings = PCAFeatures()
-        rankings.fit(["matrix"], self.X)
-        importances = rankings.transform()
+        importances = rankings.produce(self.X)
 
         self.assertTrue( np.all(np.isfinite( rankings.components_ )) )
         self.assertTrue( np.all(np.isfinite( rankings.explained_variance_ratio_ )) )
         self.assertTrue( 
             np.array_equal(
-                importances["importance_on1stpc"], np.array([2, 3, 0, 1])) )
-        self.assertTrue( 
-            np.array_equal(
-                importances["importance_onallpcs"], np.array([2, 1, 0, 2])) )
-
+                importances, np.array([2, 3, 0, 1])) )
 
 class TestRFC(unittest.TestCase):
     def setUp(self):
