@@ -16,9 +16,9 @@ def addKeyToJSON(msg, key, value):
 
 if __name__=="__main__":
     # Connect to Kafka via env vars
-    kafka_server  = os.environ.get("KAFKASERVER")
-    consumerTopic = os.environ.get("CONSUMERTOPIC")
-    producerTopic = os.environ.get("PRODUCERTOPIC")
+    kafka_server  = "192.168.7.3:9092"
+    consumerTopic = "feature_selection_input"
+    producerTopic = "feature_selection_results"
     assert(kafka_server is not None)
     assert(consumerTopic is not None)
     assert(producerTopic is not None)
@@ -27,9 +27,13 @@ if __name__=="__main__":
 
     msg = "{}"
 
-    addKeyToJSON(msg, 'id', '23')
-    addKeyToJSON(msg, 'path', sys.argv[1])
+    msg = addKeyToJSON(msg, 'id', '23')
+    msg = addKeyToJSON(msg, 'path', sys.argv[1])
 
-    producer.send(consumerTopic, msg.encode('utf-8')
+    producer.send(consumerTopic, msg.encode('utf-8'))
+
+    producer.flush()
+
+    print("Sent to " + str(consumerTopic))
     
 

@@ -1,6 +1,7 @@
 import os
+import sys
 from kafka import KafkaProducer, KafkaConsumer
-from punk.feature_selection import *
+from punk.feature_selection import PCAFeatures
 import pandas
 from json import JSONDecoder, JSONEncoder
 
@@ -13,7 +14,6 @@ def addKeyToJSON(msg, key, value):
     jsonMsg[key] = value 
 
     return encoder.encode(jsonMsg)
-
 
 def getFrameFromMessage(msg):
     decoder = JSONDecoder()
@@ -31,23 +31,39 @@ def processPca(msg):
     try:
         frame = getFrameFromMessage(msg)
     except:
-        return addKeyToJSON(msg, 'error', 'An error has occurred processing this message')
+        return addKeyToJSON(msg, 'error', sys.exc_info()[0])
 
-    pca = PCAFeatures()
+    try:
+        pca = PCAFeatures()
 
-    pca.fit("matrix", frame.values)
+        pca.fit(["matrix"], frame.as_matrix())
 
-    results = pca.transform()
+        results = pca.transform()
 
-    return addKeyToJSON(msg, 'features', results)
+
+        print(results)
+        
+        decoder = JSONDecoder()
+
+        results['importance_on1stpc'] = decoder.decode(results['importance_on1stpc'])
+        results['importance_onallpcs'] = decoder.decode(results['importance_onallpcs'])
+
+        results = decoder.decode(results)
+
+
+        return addKeyToJSON(msg, 'features', results)
+    except:
+        return addKeyToJSON(msg, 'error', sys.exc_info()[0])
 
 
 def attachKafkaListenerToPrimitive(kafka_server, consumer_topic, producer_topic, process_msg):
     # Create producer and consumer
     consumer = KafkaConsumer(consumer_topic, bootstrap_servers=[kafka_server])
     producer = KafkaProducer(bootstrap_servers=kafka_server)
+    print("Connected")
     for msg in consumer:
         # Read incoming msg
+        print(msg)
         incomingMsg = msg.value.decode('utf-8')
         
         # process incomgin msg and produce outgoing msg
@@ -55,6 +71,7 @@ def attachKafkaListenerToPrimitive(kafka_server, consumer_topic, producer_topic,
 
         # Send outgoing msg
         outgoingMsg = producer.send(producer_topic, outgoing.encode('utf-8'))
+        print(outgoing)
 
     producer.flush()
     
@@ -68,5 +85,7 @@ if __name__=="__main__":
     assert(kafka_server is not None)
     assert(consumerTopic is not None)
     assert(producerTopic is not None)
+    print(consumerTopic)
 
-    attachKafkaListenerToPrimitive(kafka_server, consumer_topic, producer_topic, processPca)
+    attachKafkaListenerToPrimitive(kafka_server, consumerTopic, producerTopic, processPca)
+
