@@ -12,3 +12,5 @@ __pycache__/
 *.sw[op] 
 
 .ipynb_checkpoints/ 
+
+d3m/log.txt
