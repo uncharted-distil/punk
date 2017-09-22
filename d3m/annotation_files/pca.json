@@ -1,123 +1,132 @@
 {
-    "id": "f7543334-97f7-3c43-978d-2d0b03829d4d",
-    "name": "punk.feature_selection.pca.PCAFeatures",
-    "common_name": "PCAFeatures",
-    "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
+    "version": "1.1.0",
+    "interfaces": [
+        "base.PrimitiveBase"
+    ],
+    "algorithm_type": [
+        "dimensionality reduction"
+    ],
+    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/pca.py",
     "languages": [
         "python3.6"
     ],
-    "library": "punk",
-    "version": "1.0.1",
-    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/pca.py",
-    "is_class": true,
-    "parameters": [],
-    "methods_available": [
-        {
-            "id": "punk.feature_selection.pca.PCAFeatures.fit",
-            "returns": {
-                "type": "object",
-                "name": "self",
-                "description": "Returns the instance itself."
-            },
-            "description": "'Fit the model with data X.",
-            "parameters": [
-                {
-                    "is_hyperparameter": false,
-                    "shape": "Number of input arrays",
-                    "type": "list of strings",
-                    "name": "intype",
-                    "description": "Types for input arrays."
-                },
-                {
-                    "is_hyperparameter": false,
-                    "shape": "n_samples, n_features",
-                    "type": "array-like",
-                    "name": "data",
-                    "description": "Training data, where n_samples in the number of samples and n_features is the number of features."
-                }
-            ],
-            "name": "fit"
-        },
-        {
-            "id": "punk.feature_selection.pca.PCAFeatures.transform",
-            "returns": {
-                "type": "dict",
-                "name": "importances",
-                "description": "Feature rankings."
-            },
-            "description": "'Feature rankings based on input data.",
-            "parameters": [],
-            "name": "transform" 
-        }
-    ],
-    "attributes": [
-        {
-            "type": "array-like",
-            "name": "components_",
-            "description": "Principal axes in feature space, representing the directions of maximum variance in the data. The components are sorted by explained_variance_."
-        },
-        {
-            "type": "array-like",
-            "name": "explained_variance_ratio_",
-            "description": "The amount of variance explained by each of the selected components. Equal to n_components largest eigenvalues of the covariance matrix of X."
-        },
-        {
-            "type": "array-like",
-            "name": "importance_on1stpc",
-            "description": "corresponds to the indices of most important features for the first principal. Component are in ascending order (most important feature 0, least important feature n_features-1)."
-        },
-        {
-            "type": "array-like",
-            "name": "importance_onallpcs",
-            "description": "corresponds to the indices of the one most important feature for each principal components."
-        }
-    ],
-    "algorithm_type": [                                                         
-        "dimensionality reduction"                                              
-    ],
-    "task_type": [
-        "feature extraction"
-    ],
+    "interfaces_version": "0.1.0",
+    "common_name": "PCAFeatures",
     "output_type": [
         "features"
-    ], 
-    "team": "distil",
-    "interface_type" : "data_cleaning",
-    "schema_version": 1.0,
+    ],
+    "id": "f7543334-97f7-3c43-978d-2d0b03829d4d",
     "build": [
         {
-            "type": "pip",
-            "package": "punk"
+            "package": "punk",
+            "type": "pip"
         }
     ],
+    "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
+    "team": "distil",
+    "parameters": [],
+    "schema_version": 1.0,
+    "is_class": true,
     "compute_resources": {
         "sample_size": [
-            1000.0, 
+            1000.0,
             10.0
-        ],
-        "sample_unit": [
-            "MB"
         ],
         "num_nodes": [
             1
         ],
-        "cores_per_node": [
-            1
-        ],
-        "gpus_per_node": [
-            0
-        ],
-        "mem_per_node": [
-            1.0
+        "mem_per_gpu": [
+            0.0
         ],
         "disk_per_node": [
             1.0
         ],
-        "mem_per_gpu": [
-            0.0
+        "mem_per_node": [
+            1.0
+        ],
+        "sample_unit": [
+            "MB"
         ],
         "expected_running_time": [
             5.0
+        ],
+        "gpus_per_node": [
+            0
+        ],
+        "cores_per_node": [
+            1
         ]
-    }
+    },
+    "methods_available": [
+        {
+            "name": "set_random_seed",
+            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use.",
+            "id": "d3m.primitives.distil.PCAFeatures.set_random_seed",
+            "parameters": [
+                {
+                    "name": "seed",
+                    "optional": false,
+                    "type": "builtins.int",
+                    "is_hyperparameter": false
+                }
+            ],
+            "returns": "builtins.NoneType"
+        },
+        {
+            "name": "get_call_metadata",
+            "description": "",
+            "id": "d3m.primitives.distil.PCAFeatures.get_call_metadata",
+            "parameters": [],
+            "returns": "builtins.dict"
+        },
+        {
+            "name": "set_params",
+            "description": "",
+            "id": "d3m.primitives.distil.PCAFeatures.set_params",
+            "parameters": [
+                {
+                    "name": "params",
+                    "optional": false,
+                    "type": "builtins.dict",
+                    "is_hyperparameter": false
+                }
+            ],
+            "returns": "builtins.NoneType"
+        },
+        {
+            "name": "fit",
+            "description": "",
+            "id": "d3m.primitives.distil.PCAFeatures.fit",
+            "parameters": [],
+            "returns": "builtins.NoneType"
+        },
+        {
+            "name": "get_params",
+            "description": "",
+            "id": "d3m.primitives.distil.PCAFeatures.get_params",
+            "parameters": [],
+            "returns": "builtins.dict"
+        },
+        {
+            "name": "produce",
+            "description": "Perform PCA and return a list of the indices of the most important\nfeatures, ordered by contribution to first PCA component\n                                                                        \nThe matrix M will correspond to the absolute value of the components of \nthe decomposiiton thus giving a matrix where each column corresponds to \na principal component and rows are the components that rescale each \nfeature.  \n                                                                        \nFor example, pca.components_.T could look like this:                        \n                                                                        \narray([[ 0.52237162,  0.37231836, -0.72101681, -0.26199559],                \n    [-0.26335492,  0.92555649,  0.24203288,  0.12413481],                 \n    [ 0.58125401,  0.02109478,  0.14089226,  0.80115427],                 \n    [ 0.56561105,  0.06541577,  0.6338014 , -0.52354627]])                \n                                                                        \nSo the most important feature with respect to the first principal \ncomponent would be the 3rd feature as this has an absolute value of \n0.58125401 which is greater than all the entries in that column.                             \n                                                                        \n                                                                        \n\"importance_on1stpc\" corresponds to the indices of most important       \nfeatures for the first principal. Component are in ascending order      \n(most important feature 0, least important feature n_features-1).       \n                                                                        \n\nParams \n------- \ndata : np.ndarray, [n_samples, n_features]\n    Training data.",
+            "id": "d3m.primitives.distil.PCAFeatures.produce",
+            "parameters": [
+                {
+                    "name": "inputs",
+                    "optional": false,
+                    "type": "numpy.ndarray",
+                    "is_hyperparameter": false
+                }
+            ],
+            "returns": "typing.List[int]"
+        }
+    ],
+    "task_type": [
+        "feature extraction"
+    ],
+    "interface_type": "data_cleaning",
+    "library": "punk",
+    "name": "punk.feature_selection.pca.PCAFeatures",
+    "original_name": "punk.feature_selection.pca.PCAFeatures"
 }

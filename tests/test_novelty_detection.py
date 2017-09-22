@@ -19,12 +19,10 @@ class TestHetero(unittest.TestCase):
                                                                                
     def test_hetero(self):
         hetero = HeteroscedasticityTest(max_iter=1000, tol=0.01)
-        hetero = hetero.fit(["matrix"], self.X_hetero)
-        res = hetero.transform()
+        hetero = hetero.produce(self.X_hetero)
+        res = {"pca": hetero[0], "fa": hetero[1]}
 
         self.assertTrue( res["fa"][0] > -80 and res["fa"][0] < -70 )
         self.assertTrue( res["fa"][1] == 10 )
         self.assertTrue( res["pca"][0] > -80 and res["pca"][0] < -70)
         self.assertTrue( res["pca"][1] >= 40 )
-        self.assertTrue( np.all(np.isfinite(hetero.pca_scores)) )
-        self.assertTrue( np.all(np.isfinite(hetero.fa_scores)) )
