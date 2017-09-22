@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name="punk",
 
-    version="1.0.1",
+    version="1.1.0",
 
     description="Primitives for Uncovering New Knowledge.",
     long_description="Machine Learning pipeline elements.",
@@ -12,7 +12,6 @@ setup(
     url="https://github.com/NewKnowledge/punk",
 
     author="New Knowledge",
-    author_email="alarcj137@gmail.com",
 
     license="MIT",
 
@@ -37,5 +36,11 @@ setup(
 
     install_requires=["numpy", "scikit-learn", "scipy"],
 
+    entry_points = {
+        'd3m.primitives': [
+            'distil.PCAFeatures = punk.feature_selection.pca:PCAFeatures',
+            'distil.RFFeatures = punk.feature_selection.rf:RFFeatures',
+        ],
+    },
 
 )

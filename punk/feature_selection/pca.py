@@ -1,33 +1,93 @@
 import numpy as np
 from sklearn.decomposition import PCA
 from typing import NamedTuple, List
-# from ..base import DataCleaningPrimitiveBase
 from primitive_interfaces.base import PrimitiveBase
 
 Input = np.ndarray
 Output = List[int]
-Params = NamedTuple('Params', ())
-CallMetadata = NamedTuple('CallMetadata', ())
+Params = dict
+CallMetadata = dict
 
 class PCAFeatures(PrimitiveBase[Input, Output, Params]):
+    __author__ = "distil"
+    __metadata__ = {
+        "id": "f7543334-97f7-3c43-978d-2d0b03829d4d",
+        "name": "punk.feature_selection.pca.PCAFeatures",
+        "common_name": "PCAFeatures",
+        "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
+        "languages": [
+            "python3.6"
+        ],
+        "library": "punk",
+        "version": "1.0.1",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/pca.py",
+        "algorithm_type": [                                                         
+            "dimensionality reduction"                                              
+        ],
+        "task_type": [
+            "feature extraction"
+        ],
+        "output_type": [
+            "features"
+        ], 
+        "team": "distil",
+        "interface_type" : "data_cleaning",
+        "schema_version": 1.0,
+        "build": [
+            {
+                "type": "pip",
+                "package": "punk"
+            }
+        ],
+         "compute_resources": {
+            "sample_size": [
+                1000.0, 
+                10.0
+            ],
+            "sample_unit": [
+                "MB"
+            ],
+            "num_nodes": [
+                1
+            ],
+            "cores_per_node": [
+                1
+            ],
+            "gpus_per_node": [
+                0
+            ],
+            "mem_per_node": [
+                1.0
+            ],
+            "disk_per_node": [
+                1.0
+            ],
+            "mem_per_gpu": [
+                0.0
+            ],
+            "expected_running_time": [
+                5.0
+            ]
+        }
+    }
+
 
     def __init__(self) -> None:
+        self.callMetadata = {}
+        self.params = {}
         pass
 
     def fit(self) -> None:
         pass
 
-    def set_training_data(self, inputs: Input) -> None:
-        pass
-
     def get_params(self) -> Params:
-        return self.Params()
+        return self.params
 
     def set_params(self, params: Params) -> None:
-        pass
+        self.params = params
 
     def get_call_metadata(self) -> CallMetadata:
-        return self.CallMetadata()
+        return self.callMetadata
 
     def produce(self, inputs: Input) -> Output:
         """ Perform PCA and return a list of the indices of the most important
