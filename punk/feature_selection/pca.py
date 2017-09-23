@@ -1,12 +1,97 @@
 import numpy as np
 from sklearn.decomposition import PCA
-from ..base import DataCleaningPrimitiveBase
+from typing import NamedTuple, List
+from primitive_interfaces.base import PrimitiveBase
+
+Input = np.ndarray
+Output = List[int]
+Params = dict
+CallMetadata = dict
+
+class PCAFeatures(PrimitiveBase[Input, Output, Params]):
+    __author__ = "distil"
+    __metadata__ = {
+        "id": "f7543334-97f7-3c43-978d-2d0b03829d4d",
+        "name": "punk.feature_selection.pca.PCAFeatures",
+        "common_name": "PCAFeatures",
+        "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
+        "languages": [
+            "python3.6"
+        ],
+        "library": "punk",
+        "version": "1.0.1",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/pca.py",
+        "algorithm_type": [                                                         
+            "dimensionality reduction"                                              
+        ],
+        "task_type": [
+            "feature extraction"
+        ],
+        "output_type": [
+            "features"
+        ], 
+        "team": "distil",
+        "interface_type" : "data_cleaning",
+        "schema_version": 1.0,
+        "build": [
+            {
+                "type": "pip",
+                "package": "punk"
+            }
+        ],
+         "compute_resources": {
+            "sample_size": [
+                1000.0, 
+                10.0
+            ],
+            "sample_unit": [
+                "MB"
+            ],
+            "num_nodes": [
+                1
+            ],
+            "cores_per_node": [
+                1
+            ],
+            "gpus_per_node": [
+                0
+            ],
+            "mem_per_node": [
+                1.0
+            ],
+            "disk_per_node": [
+                1.0
+            ],
+            "mem_per_gpu": [
+                0.0
+            ],
+            "expected_running_time": [
+                5.0
+            ]
+        }
+    }
 
 
-class PCAFeatures(DataCleaningPrimitiveBase):
+    def __init__(self) -> None:
+        self.callMetadata = {}
+        self.params = {}
+        pass
 
-    def fit(self, intype, data):
-        """ Do PCA and return the ranked features.                                  
+    def fit(self) -> None:
+        pass
+
+    def get_params(self) -> Params:
+        return self.params
+
+    def set_params(self, params: Params) -> None:
+        self.params = params
+
+    def get_call_metadata(self) -> CallMetadata:
+        return self.callMetadata
+
+    def produce(self, inputs: Input) -> Output:
+        """ Perform PCA and return a list of the indices of the most important
+        features, ordered by contribution to first PCA component
                                                                                 
         The matrix M will correspond to the absolute value of the components of 
         the decomposiiton thus giving a matrix where each column corresponds to 
@@ -29,40 +114,25 @@ class PCAFeatures(DataCleaningPrimitiveBase):
         features for the first principal. Component are in ascending order      
         (most important feature 0, least important feature n_features-1).       
                                                                                 
-        "importance_onallpcs" corresponds to the indices of the one most        
-        important feature for each principal components.                        
-                                                                                
-        "explained_variance_ratio" Percentage of variance explained by each of  
-        the selected components.                                                
         
         Params 
         ------- 
-        intype : str
-            Expect ``matrix``.
-        data : array-like, [n_samples, n_features]
+        data : np.ndarray, [n_samples, n_features]
             Training data.
-        """  
-        if isinstance(intype, (list, tuple)):
-            assert(intype[0]=="matrix")
-        else:
-            raise ValueError("Fit expected a 'matrix' an a intype.")
+        """
 
         pca = PCA()
-        pca.fit_transform(data)
 
-        self.components_ = pca.components_
-        self.explained_variance_ratio_ = pca.explained_variance_ratio_
+        try:
+            pca.fit_transform(inputs)
 
-        M = np.absolute(pca.components_.T)
-        # Rank features based on contribtuions to 1st PC
-        self.importance_on1stpc = np.argsort(M[:,0], axis=0)[::-1]
-        # Rank features based on contributions to PCs 
-        self.importance_onallpcs = np.argmax(M, axis=0)
+            M = np.absolute(pca.components_.T)
 
-        return self
+            # Rank features based on contribtuions to 1st PC
+            self.importance_on1stpc = np.argsort(M[:,0], axis=0)[::-1]
+        except:
+            # If any error occurs, just return indices in original order
+            # In the future we should consider a better error handling strategy
+            self.importance_on1stpc = [i for i in range(inputs.shape[0])]
 
-    def transform(self, data=None):
-        return {
-            "importance_on1stpc": self.importance_on1stpc,
-            "importance_onallpcs": self.importance_onallpcs
-        }
+        return self.importance_on1stpc
