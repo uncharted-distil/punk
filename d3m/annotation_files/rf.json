@@ -1,84 +1,51 @@
 {
-    "version": "1.1.0",
-    "interfaces": [
-        "base.PrimitiveBase"
-    ],
-    "algorithm_type": [
-        "decision tree"
-    ],
-    "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/rf.py",
-    "languages": [
-        "python3.6"
-    ],
-    "interfaces_version": "0.1.0",
-    "common_name": "RFFeatures",
-    "output_type": [
-        "features"
-    ],
-    "id": "fa654741-8ab9-39ec-a9a7-3d41aaf67932",
-    "build": [
-        {
-            "package": "punk",
-            "type": "pip"
-        }
-    ],
-    "description": "Ranking of features using Random Forest.",
-    "team": "distil",
     "parameters": [
         {
-            "name": "problem_type",
             "optional": true,
-            "type": "builtins.str",
             "default": "classification",
-            "is_hyperparameter": true
-        },
-        {
-            "name": "scoring",
-            "optional": true,
             "type": "builtins.str",
+            "name": "problem_type",
+            "is_hyperparameter": true
+        },
+        {
+            "optional": true,
             "default": "accuracy",
+            "type": "builtins.str",
+            "name": "scoring",
             "is_hyperparameter": true
         },
         {
-            "name": "crossval",
             "optional": true,
-            "type": "builtins.int",
             "default": "3",
+            "type": "builtins.int",
+            "name": "crossval",
             "is_hyperparameter": true
         },
         {
-            "name": "verbose",
             "optional": true,
-            "type": "builtins.int",
             "default": "0",
+            "type": "builtins.int",
+            "name": "verbose",
             "is_hyperparameter": true
         },
         {
-            "name": "n_jobs",
             "optional": true,
-            "type": "builtins.int",
             "default": "1",
+            "type": "builtins.int",
+            "name": "n_jobs",
             "is_hyperparameter": true
         }
     ],
-    "schema_version": 1.0,
-    "is_class": true,
+    "id": "fa654741-8ab9-39ec-a9a7-3d41aaf67932",
     "compute_resources": {
-        "sample_size": [
-            1000.0,
-            10.0
-        ],
-        "num_nodes": [
-            1
-        ],
         "mem_per_gpu": [
             0.0
         ],
         "disk_per_node": [
             1.0
         ],
-        "mem_per_node": [
-            1.0
+        "gpus_per_node": [
+            0
         ],
         "sample_unit": [
             "MB"
@@ -86,83 +53,116 @@
         "expected_running_time": [
             5.0
         ],
-        "gpus_per_node": [
-            0
-        ],
         "cores_per_node": [
             1
+        ],
+        "sample_size": [
+            1000.0,
+            10.0
+        ],
+        "num_nodes": [
+            1
+        ],
+        "mem_per_node": [
+            1.0
         ]
     },
-    "methods_available": [
+    "build": [
         {
-            "name": "set_random_seed",
-            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use.",
-            "id": "d3m.primitives.distil.RFFeatures.set_random_seed",
-            "parameters": [
-                {
-                    "name": "seed",
-                    "optional": false,
-                    "type": "builtins.int",
-                    "is_hyperparameter": false
-                }
-            ],
-            "returns": "builtins.NoneType"
-        },
-        {
-            "name": "get_call_metadata",
-            "description": "",
-            "id": "d3m.primitives.distil.RFFeatures.get_call_metadata",
-            "parameters": [],
-            "returns": "builtins.dict"
-        },
-        {
-            "name": "set_params",
-            "description": "",
-            "id": "d3m.primitives.distil.RFFeatures.set_params",
-            "parameters": [
-                {
-                    "name": "params",
-                    "optional": false,
-                    "type": "builtins.dict",
-                    "is_hyperparameter": false
-                }
-            ],
-            "returns": "builtins.NoneType"
-        },
-        {
-            "name": "fit",
-            "description": "",
-            "id": "d3m.primitives.distil.RFFeatures.fit",
-            "parameters": [],
-            "returns": "builtins.NoneType"
-        },
-        {
-            "name": "get_params",
-            "description": "",
-            "id": "d3m.primitives.distil.RFFeatures.get_params",
-            "parameters": [],
-            "returns": "builtins.dict"
-        },
-        {
-            "name": "produce",
-            "description": "Rank features using Random Forest classifier.                           \n                                                                        \n    Use GridSearchCV to optimize the scoring method for a random forest         \nclassifier and return the importance of the features.    \n\n\"indices\" indicate the feature importances of features order in\nascending order (most importance feature to least important features).\n\n\"feature_importances\" The feature importances (the higher, the more\nimportant the feature).\n                                                                        \nParams                                                                      \n------                                                                      \ndata : tuple of arrays \n    ([n_samples, n_features], [n_samples, n_features]) corresponding to\n    training data and labels.",
-            "id": "d3m.primitives.distil.RFFeatures.produce",
-            "parameters": [
-                {
-                    "name": "inputs",
-                    "optional": false,
-                    "type": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
-                    "is_hyperparameter": false
-                }
-            ],
-            "returns": "typing.List[int]"
+            "package": "punk",
+            "type": "pip"
         }
     ],
+    "team": "distil",
+    "methods_available": [
+        {
+            "parameters": [
+                {
+                    "optional": false,
+                    "type": "builtins.dict",
+                    "name": "params",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.RFFeatures.set_params",
+            "returns": "builtins.NoneType",
+            "name": "set_params",
+            "description": ""
+        },
+        {
+            "parameters": [],
+            "id": "d3m.primitives.distil.RFFeatures.get_params",
+            "returns": "builtins.dict",
+            "name": "get_params",
+            "description": ""
+        },
+        {
+            "parameters": [],
+            "id": "d3m.primitives.distil.RFFeatures.fit",
+            "returns": "builtins.NoneType",
+            "name": "fit",
+            "description": ""
+        },
+        {
+            "parameters": [
+                {
+                    "optional": false,
+                    "type": "builtins.int",
+                    "name": "seed",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.RFFeatures.set_random_seed",
+            "returns": "builtins.NoneType",
+            "name": "set_random_seed",
+            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use."
+        },
+        {
+            "parameters": [
+                {
+                    "optional": false,
+                    "type": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
+                    "name": "inputs",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.RFFeatures.produce",
+            "returns": "typing.List[int]",
+            "name": "produce",
+            "description": "Rank features using Random Forest classifier.                           \n                                                                        \n    Use GridSearchCV to optimize the scoring method for a random forest         \nclassifier and return the importance of the features.    \n\n\"indices\" indicate the feature importances of features order in\nascending order (most importance feature to least important features).\n\n\"feature_importances\" The feature importances (the higher, the more\nimportant the feature).\n                                                                        \nParams                                                                      \n------                                                                      \ndata : tuple of arrays \n    ([n_samples, n_features], [n_samples, n_features]) corresponding to\n    training data and labels."
+        },
+        {
+            "parameters": [],
+            "id": "d3m.primitives.distil.RFFeatures.get_call_metadata",
+            "returns": "builtins.dict",
+            "name": "get_call_metadata",
+            "description": ""
+        }
+    ],
+    "algorithm_type": [
+        "decision tree"
+    ],
+    "original_name": "punk.feature_selection.rf.RFFeatures",
     "task_type": [
         "feature extraction"
     ],
-    "interface_type": "data_cleaning",
+    "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/feature_selection/rf.py",
+    "interfaces": [
+        "base.PrimitiveBase"
+    ],
+    "is_class": true,
+    "output_type": [
+        "features"
+    ],
+    "version": "1.1.0",
+    "common_name": "RFFeatures",
     "library": "punk",
     "name": "punk.feature_selection.rf.RFFeatures",
-    "original_name": "punk.feature_selection.rf.RFFeatures"
+    "languages": [
+        "python3.6"
+    ],
+    "schema_version": 1.0,
+    "interface_type": "data_cleaning",
+    "description": "Ranking of features using Random Forest.",
+    "interfaces_version": "0.1.0"
 }

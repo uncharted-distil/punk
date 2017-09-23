@@ -15,15 +15,15 @@ class CleanDates(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
         "id": "8a2fe029-6817-35f6-8822-2674910d9e8f",
-        "name": "preppy.data_cleaning.date.date_cleaning",
+        "name": "punk.preppy.cleanDates.CleanDates",
         "common_name": "CleanDates",
         "description": "Forcing just about anything that looks like a datetime string into a datetime object",
         "languages": [
             "python3.6"
         ],
-        "library": "preppy",
-        "version": "0.1.0",
-        "source_code": "https://github.com/NewKnowledge/preppy/blob/master/preppy/__init__.py#L11",
+        "library": "punk",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanDates.py",
         "is_class": True,
         "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
@@ -40,7 +40,7 @@ class CleanDates(PrimitiveBase[Inputs, Outputs, Params]):
         "build": [
             {
                 "type": "pip",
-                "package": "preppy"
+                "package": "punk"
             }
         ],
         "compute_resources": {

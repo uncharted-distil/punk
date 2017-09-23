@@ -14,15 +14,15 @@ class AggregateByNumericRange(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
         "id": "67a642bc-9e36-3154-b21e-0b74744a8900",
-        "name": "aggregator.aggregation.numeric.numeric_range_aggregation",
+        "name": "punk.aggregator.aggregateByNumericRange.AggregateByNumericRange",
         "common_name": "NumericRangeAggregation",
         "description": "Determine the best bins for value counts and perform the aggregation",
         "languages": [
             "python3.6"
         ],
-        "library": "aggregation",
-        "version": "0.1.0",
-        "source_code": "https://github.com/NewKnowledge/aggregator/blob/master/aggregator/__init__.py#L29",
+        "library": "punk",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/aggregator/aggregateByNumericRange.py",
         "is_class": True,
         "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
@@ -39,7 +39,7 @@ class AggregateByNumericRange(PrimitiveBase[Inputs, Outputs, Params]):
         "build": [
             {
                 "type": "pip",
-                "package": "aggregator"
+                "package": "punk"
             }
         ],
         "compute_resources": {

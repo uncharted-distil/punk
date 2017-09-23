@@ -14,15 +14,15 @@ class AggregateByDateTime(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
         "id": "8d683ecd-314b-374d-a8cb-39c9a509473f",
-        "name": "aggregator.aggregation.datetime.datetime_aggregation",
+        "name": "punk.aggregator.aggregateByDateTime.AggregateByDateTime",
         "common_name": "DatetimeAggregation",
         "description": "Arbitrary groupby aggregations over intervals of time",
         "languages": [
             "python3.6"
         ],
-        "library": "aggregation",
-        "version": "0.1.0",
-        "source_code": "https://github.com/NewKnowledge/aggregator/blob/master/aggregator/__init__.py#L20",
+        "library": "punk",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/aggregator/aggregateByDateTime.py",
         "is_class": True,
         "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
@@ -39,7 +39,7 @@ class AggregateByDateTime(PrimitiveBase[Inputs, Outputs, Params]):
         "build": [
             {
                 "type": "pip",
-                "package": "aggregator"
+                "package": "punk"
             }
         ],
         "compute_resources": {

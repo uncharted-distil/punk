@@ -1,146 +1,146 @@
 {
-    "schema_version": 1.0,
-    "description": "Forcing just about anything that looks like a datetime string into a datetime object",
-    "original_name": "punk.preppy.cleanDates.CleanDates",
-    "team": "distil",
-    "version": "0.1.0",
-    "interfaces_version": "0.1.0",
-    "is_class": true,
-    "languages": [
-        "python3.6"
-    ],
-    "output_type": [
-        "features"
-    ],
-    "algorithm_type": [
-        "data_preparation"
-    ],
-    "task_type": [
-        "data cleaning"
-    ],
-    "library": "preppy",
-    "name": "preppy.data_cleaning.date.date_cleaning",
-    "source_code": "https://github.com/NewKnowledge/preppy/blob/master/preppy/__init__.py#L11",
-    "interface_type": "data_cleaning",
-    "id": "8a2fe029-6817-35f6-8822-2674910d9e8f",
-    "methods_available": [
-        {
-            "description": "",
-            "name": "set_params",
-            "id": "d3m.primitives.distil.CleanDates.set_params",
-            "parameters": [
-                {
-                    "optional": false,
-                    "name": "params",
-                    "is_hyperparameter": false,
-                    "type": "builtins.dict"
-                }
-            ],
-            "returns": "builtins.NoneType"
-        },
-        {
-            "description": "Produce primitive's best choice of the output for each of the inputs.\n\nIn many cases producing an output is a quick operation in comparison with ``fit``, but not\nall cases are like that. For example, a primitive can start a potentially long optimization\nprocess to compute outputs. ``timeout`` and ``iterations`` can serve as a way for a caller\nto guide the length of this process.\n\nIdeally, a primitive should adapt its call to try to produce the best outputs possible\ninside the time allocated. If this is not possible and the primitive reaches the timeout\nbefore producing outputs, it should raise a ``TimeoutError`` exception to signal that the\ncall was unsuccessful in the given time. The state of the primitive after the exception\nshould be as the method call has never happened and primitive should continue to operate\nnormally. The purpose of ``timeout`` is to give opportunity to a primitive to cleanly\nmanage its state instead of interrupting execution from outside. Maintaining stable internal\nstate should have precedence over respecting the ``timeout`` (caller can terminate the\nmisbehaving primitive from outside anyway). If a longer ``timeout`` would produce\ndifferent outputs, then ``get_call_metadata``'s ``has_finished`` should be set to\n``False``.\n\nSome primitives have internal iterations (for example, optimization iterations).\nFor those, caller can provide how many of primitive's internal iterations\nshould a primitive do before returning outputs. Primitives should make iterations as\nsmall as reasonable. If ``iterations`` is ``None``, then there is no limit on\nhow many iterations the primitive should do and primitive should choose the best amount\nof iterations on its own (potentially controlled through hyper-parameters).\nIf ``iterations`` is a number, a primitive has to do those number of iterations,\nif possible. ``timeout`` should still be respected and potentially less iterations\ncan be done because of that. Primitives with internal iterations should make\n``get_call_metadata`` returns correct values.\n\nFor primitives which do not have internal iterations, any value of ``iterations``\nmeans that they should run fully, respecting only ``timeout``.\n\nParameters\n----------\ninputs : Inputs\n    The inputs of shape [num_inputs, ...].\ntimeout : float\n    A maximum time this primitive should take to produce outputs during this method call, in seconds.\niterations : int\n    How many of internal iterations should the primitive do.\n\nReturns\n-------\nOutputs\n    The outputs of shape [num_inputs, ...].",
-            "name": "produce",
-            "id": "d3m.primitives.distil.CleanDates.produce",
-            "parameters": [
-                {
-                    "optional": false,
-                    "name": "inputs",
-                    "is_hyperparameter": false,
-                    "type": "~Inputs"
-                },
-                {
-                    "optional": true,
-                    "name": "timeout",
-                    "is_hyperparameter": false,
-                    "type": "typing.Union[float, NoneType]",
-                    "default": "None"
-                },
-                {
-                    "optional": true,
-                    "name": "iterations",
-                    "is_hyperparameter": false,
-                    "type": "typing.Union[int, NoneType]",
-                    "default": "None"
-                }
-            ],
-            "returns": "~Outputs"
-        },
-        {
-            "description": "",
-            "name": "get_call_metadata",
-            "id": "d3m.primitives.distil.CleanDates.get_call_metadata",
-            "parameters": [],
-            "returns": "builtins.dict"
-        },
-        {
-            "description": "",
-            "name": "get_params",
-            "id": "d3m.primitives.distil.CleanDates.get_params",
-            "parameters": [],
-            "returns": "builtins.dict"
-        },
-        {
-            "description": "",
-            "name": "fit",
-            "id": "d3m.primitives.distil.CleanDates.fit",
-            "parameters": [],
-            "returns": "builtins.NoneType"
-        },
-        {
-            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use.",
-            "name": "set_random_seed",
-            "id": "d3m.primitives.distil.CleanDates.set_random_seed",
-            "parameters": [
-                {
-                    "optional": false,
-                    "name": "seed",
-                    "is_hyperparameter": false,
-                    "type": "builtins.int"
-                }
-            ],
-            "returns": "builtins.NoneType"
-        }
-    ],
     "parameters": [],
-    "build": [
-        {
-            "package": "preppy",
-            "type": "pip"
-        }
-    ],
-    "interfaces": [
-        "base.PrimitiveBase"
-    ],
+    "id": "8a2fe029-6817-35f6-8822-2674910d9e8f",
     "compute_resources": {
-        "sample_unit": [
-            "MB"
+        "mem_per_gpu": [
+            0.0
         ],
-        "cores_per_node": [
-            1
+        "disk_per_node": [
+            1.0
         ],
         "gpus_per_node": [
             0
+        ],
+        "sample_unit": [
+            "MB"
+        ],
+        "expected_running_time": [
+            5.0
+        ],
+        "cores_per_node": [
+            1
         ],
         "sample_size": [
             1000.0,
             10.0
         ],
-        "expected_running_time": [
-            5.0
-        ],
-        "disk_per_node": [
-            1.0
+        "num_nodes": [
+            1
         ],
         "mem_per_node": [
             1.0
-        ],
-        "mem_per_gpu": [
-            0.0
-        ],
-        "num_nodes": [
-            1
         ]
     },
-    "common_name": "CleanDates"
+    "build": [
+        {
+            "package": "punk",
+            "type": "pip"
+        }
+    ],
+    "team": "distil",
+    "methods_available": [
+        {
+            "parameters": [
+                {
+                    "optional": false,
+                    "type": "builtins.dict",
+                    "name": "params",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.CleanDates.set_params",
+            "returns": "builtins.NoneType",
+            "name": "set_params",
+            "description": ""
+        },
+        {
+            "parameters": [],
+            "id": "d3m.primitives.distil.CleanDates.get_params",
+            "returns": "builtins.dict",
+            "name": "get_params",
+            "description": ""
+        },
+        {
+            "parameters": [],
+            "id": "d3m.primitives.distil.CleanDates.fit",
+            "returns": "builtins.NoneType",
+            "name": "fit",
+            "description": ""
+        },
+        {
+            "parameters": [
+                {
+                    "optional": false,
+                    "type": "builtins.int",
+                    "name": "seed",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.CleanDates.set_random_seed",
+            "returns": "builtins.NoneType",
+            "name": "set_random_seed",
+            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use."
+        },
+        {
+            "parameters": [
+                {
+                    "optional": false,
+                    "type": "~Inputs",
+                    "name": "inputs",
+                    "is_hyperparameter": false
+                },
+                {
+                    "optional": true,
+                    "default": "None",
+                    "type": "typing.Union[float, NoneType]",
+                    "name": "timeout",
+                    "is_hyperparameter": false
+                },
+                {
+                    "optional": true,
+                    "default": "None",
+                    "type": "typing.Union[int, NoneType]",
+                    "name": "iterations",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.CleanDates.produce",
+            "returns": "~Outputs",
+            "name": "produce",
+            "description": "Produce primitive's best choice of the output for each of the inputs.\n\nIn many cases producing an output is a quick operation in comparison with ``fit``, but not\nall cases are like that. For example, a primitive can start a potentially long optimization\nprocess to compute outputs. ``timeout`` and ``iterations`` can serve as a way for a caller\nto guide the length of this process.\n\nIdeally, a primitive should adapt its call to try to produce the best outputs possible\ninside the time allocated. If this is not possible and the primitive reaches the timeout\nbefore producing outputs, it should raise a ``TimeoutError`` exception to signal that the\ncall was unsuccessful in the given time. The state of the primitive after the exception\nshould be as the method call has never happened and primitive should continue to operate\nnormally. The purpose of ``timeout`` is to give opportunity to a primitive to cleanly\nmanage its state instead of interrupting execution from outside. Maintaining stable internal\nstate should have precedence over respecting the ``timeout`` (caller can terminate the\nmisbehaving primitive from outside anyway). If a longer ``timeout`` would produce\ndifferent outputs, then ``get_call_metadata``'s ``has_finished`` should be set to\n``False``.\n\nSome primitives have internal iterations (for example, optimization iterations).\nFor those, caller can provide how many of primitive's internal iterations\nshould a primitive do before returning outputs. Primitives should make iterations as\nsmall as reasonable. If ``iterations`` is ``None``, then there is no limit on\nhow many iterations the primitive should do and primitive should choose the best amount\nof iterations on its own (potentially controlled through hyper-parameters).\nIf ``iterations`` is a number, a primitive has to do those number of iterations,\nif possible. ``timeout`` should still be respected and potentially less iterations\ncan be done because of that. Primitives with internal iterations should make\n``get_call_metadata`` returns correct values.\n\nFor primitives which do not have internal iterations, any value of ``iterations``\nmeans that they should run fully, respecting only ``timeout``.\n\nParameters\n----------\ninputs : Inputs\n    The inputs of shape [num_inputs, ...].\ntimeout : float\n    A maximum time this primitive should take to produce outputs during this method call, in seconds.\niterations : int\n    How many of internal iterations should the primitive do.\n\nReturns\n-------\nOutputs\n    The outputs of shape [num_inputs, ...]."
+        },
+        {
+            "parameters": [],
+            "id": "d3m.primitives.distil.CleanDates.get_call_metadata",
+            "returns": "builtins.dict",
+            "name": "get_call_metadata",
+            "description": ""
+        }
+    ],
+    "algorithm_type": [
+        "data_preparation"
+    ],
+    "original_name": "punk.preppy.cleanDates.CleanDates",
+    "task_type": [
+        "data cleaning"
+    ],
+    "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanDates.py",
+    "interfaces": [
+        "base.PrimitiveBase"
+    ],
+    "is_class": true,
+    "output_type": [
+        "features"
+    ],
+    "version": "1.1.0",
+    "common_name": "CleanDates",
+    "library": "punk",
+    "name": "punk.preppy.cleanDates.CleanDates",
+    "languages": [
+        "python3.6"
+    ],
+    "schema_version": 1.0,
+    "interface_type": "data_cleaning",
+    "description": "Forcing just about anything that looks like a datetime string into a datetime object",
+    "interfaces_version": "0.1.0"
 }

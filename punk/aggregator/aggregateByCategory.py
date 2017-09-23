@@ -14,15 +14,15 @@ class AggregateByCategory(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
         "id": "049247df-8779-36f3-9547-2ee2e6183b62",
-        "name": "aggregator.aggregation.categorical.categorical_aggregation",
+        "name": "punk.aggregator.aggregateByCategory.AggregateByCategory",
         "common_name": "CategoricalAggregation",
         "description": "Arbitrary groupby aggregations",
         "languages": [
             "python3.6"
         ],
-        "library": "aggregation",
-        "version": "0.1.0",
-        "source_code": "https://github.com/NewKnowledge/aggregator/blob/master/aggregator/__init__.py#L5",
+        "library": "punk",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/aggregator/aggregateByCategory.py",
         "is_class": True,
         "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
@@ -39,7 +39,7 @@ class AggregateByCategory(PrimitiveBase[Inputs, Outputs, Params]):
         "build": [
             {
                 "type": "pip",
-                "package": "aggregator"
+                "package": "punk"
             }
         ],
         "compute_resources": {

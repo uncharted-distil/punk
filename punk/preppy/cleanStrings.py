@@ -13,15 +13,15 @@ class CleanStrings(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
         "id": "447a0205-1066-3a6d-a001-e4822a0e6ed7",
-        "name": "preppy.data_cleaning.string.string_cleaning",
+        "name": "punk.preppy.cleanStrings.CleanStrings",
         "common_name": "CleanDates",
         "description": "Forcing just about anything that looks like a string into a unicode object",
         "languages": [
             "python3.6"
         ],
-        "library": "preppy",
-        "version": "0.1.0",
-        "source_code": "https://github.com/NewKnowledge/preppy/blob/master/preppy/__init__.py#L18",
+        "library": "punk",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanStrings.py",
         "is_class": True,
         "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
@@ -38,7 +38,7 @@ class CleanStrings(PrimitiveBase[Inputs, Outputs, Params]):
         "build": [
             {
                 "type": "pip",
-                "package": "preppy"
+                "package": "punk"
             }
         ],
         "compute_resources": {

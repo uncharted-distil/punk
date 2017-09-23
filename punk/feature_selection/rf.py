@@ -22,8 +22,8 @@ class RFFeatures(PrimitiveBase[Inputs, Outputs, Params]):
             "python3.6"
         ],
         "library": "punk",
-        "version": "1.0.1",
-        "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/rf.py",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/feature_selection/rf.py",
         "algorithm_type": [                                                         
             "decision tree"                                              
         ],

@@ -13,15 +13,15 @@ class CleanNumbers(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
         "id": "d4582270-bc46-346a-9925-7bfc3e8d2bfc",
-        "name": "preppy.data_cleaning.number.number_cleaning",
+        "name": "punk.preppy.cleanNumbers.CleanNumbers",
         "common_name": "CleanNumbers",
         "description": "Forcing just about anything that looks like a number into a float",
         "languages": [
             "python3.6"
         ],
-        "library": "preppy",
-        "version": "0.1.0",
-        "source_code": "https://github.com/NewKnowledge/preppy/blob/master/preppy/__init__.py#L4",
+        "library": "punk",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanNumbers.py",
         "is_class": True,
         "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
@@ -38,7 +38,7 @@ class CleanNumbers(PrimitiveBase[Inputs, Outputs, Params]):
         "build": [
             {
                 "type": "pip",
-                "package": "preppy"
+                "package": "punk"
             }
         ],
         "compute_resources": {

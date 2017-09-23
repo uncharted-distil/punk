@@ -19,8 +19,8 @@ class PCAFeatures(PrimitiveBase[Input, Output, Params]):
             "python3.6"
         ],
         "library": "punk",
-        "version": "1.0.1",
-        "source_code": "https://github.com/NewKnowledge/punk/blob/master/punk/feature_selection/pca.py",
+        "version": "1.1.0",
+        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/feature_selection/pca.py",
         "algorithm_type": [                                                         
             "dimensionality reduction"                                              
         ],
