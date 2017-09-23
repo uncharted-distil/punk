@@ -34,7 +34,7 @@ setup(
 
     packages=find_packages(exclude=['tests']),
 
-    install_requires=["numpy", "scikit-learn", "scipy", "dateutil"],
+    install_requires=["numpy", "scikit-learn", "scipy", "python-dateutil"],
 
     entry_points = {
         'd3m.primitives': [
@@ -44,6 +44,9 @@ setup(
             'distil.AggregateByCategory = punk.aggregator.aggregateByCategory:AggregateByCategory',
             'distil.AggregateByDateTime = punk.aggregator.aggregateByDateTime:AggregateByDateTime',
             'distil.AggregateByNumericRange = punk.aggregator.aggregateByNumericRange:AggregateByNumericRange',
+            'distil.CleanDates = punk.preppy.cleanDates:CleanDates',
+            'distil.CleanNumbers = punk.preppy.cleanNumbers:CleanNumbers',
+            'distil.CleanStrings = punk.preppy.cleanStrings:CleanStrings'
         ],
     },
 

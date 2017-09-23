@@ -22,7 +22,7 @@ class AggregateByDateTimeCategory(PrimitiveBase[pd.DataFrame, List[str]]):
     def fit(self):
         pass
 
-    def produce(self, inputs: pd.DataFrame, values=[], groupby=[], datetime=None, intervals=None, 
-                    aggregation=None):
-        return agg_by_category_by_date(inputs, datetime, values, groupby, intervals=intervals, 
+    def produce(self, inputs: pd.DataFrame, values: List[str] = [], groupby : List[str] = [],
+                datetime=None, intervals=None, aggregation=None):
+        return agg_by_category_by_date(inputs, datetime, values, groupby, interval=intervals, 
                             agg=aggregation)
