@@ -1,0 +1,139 @@
+{
+    "team": "distil",
+    "id": "67a642bc-9e36-3154-b21e-0b74744a8900",
+    "languages": [
+        "python3.6"
+    ],
+    "task_type": [
+        "data cleaning"
+    ],
+    "is_class": true,
+    "common_name": "NumericRangeAggregation",
+    "compute_resources": {
+        "sample_size": [
+            1000.0,
+            10.0
+        ],
+        "cores_per_node": [
+            1
+        ],
+        "mem_per_node": [
+            1.0
+        ],
+        "disk_per_node": [
+            1.0
+        ],
+        "expected_running_time": [
+            5.0
+        ],
+        "mem_per_gpu": [
+            0.0
+        ],
+        "num_nodes": [
+            1
+        ],
+        "sample_unit": [
+            "MB"
+        ],
+        "gpus_per_node": [
+            0
+        ]
+    },
+    "schema_version": 1.0,
+    "methods_available": [
+        {
+            "name": "set_params",
+            "id": "d3m.primitives.distil.AggregateByNumericRange.set_params",
+            "parameters": [
+                {
+                    "name": "params",
+                    "optional": false,
+                    "type": "builtins.dict",
+                    "is_hyperparameter": false
+                }
+            ],
+            "returns": "builtins.NoneType",
+            "description": ""
+        },
+        {
+            "name": "set_random_seed",
+            "id": "d3m.primitives.distil.AggregateByNumericRange.set_random_seed",
+            "parameters": [
+                {
+                    "name": "seed",
+                    "optional": false,
+                    "type": "builtins.int",
+                    "is_hyperparameter": false
+                }
+            ],
+            "returns": "builtins.NoneType",
+            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use."
+        },
+        {
+            "name": "fit",
+            "id": "d3m.primitives.distil.AggregateByNumericRange.fit",
+            "parameters": [],
+            "returns": "builtins.NoneType",
+            "description": ""
+        },
+        {
+            "name": "produce",
+            "id": "d3m.primitives.distil.AggregateByNumericRange.produce",
+            "parameters": [
+                {
+                    "name": "inputs",
+                    "optional": false,
+                    "type": "pandas.core.frame.DataFrame",
+                    "is_hyperparameter": false
+                },
+                {
+                    "name": "values",
+                    "optional": true,
+                    "type": "typing.List[str]",
+                    "default": "[]",
+                    "is_hyperparameter": false
+                }
+            ],
+            "returns": "numpy.ndarray",
+            "description": ""
+        },
+        {
+            "name": "get_params",
+            "id": "d3m.primitives.distil.AggregateByNumericRange.get_params",
+            "parameters": [],
+            "returns": "builtins.dict",
+            "description": ""
+        },
+        {
+            "name": "get_call_metadata",
+            "id": "d3m.primitives.distil.AggregateByNumericRange.get_call_metadata",
+            "parameters": [],
+            "returns": "builtins.dict",
+            "description": ""
+        }
+    ],
+    "build": [
+        {
+            "package": "aggregator",
+            "type": "pip"
+        }
+    ],
+    "algorithm_type": [
+        "aggregation"
+    ],
+    "parameters": [],
+    "description": "Determine the best bins for value counts and perform the aggregation",
+    "original_name": "punk.aggregator.aggregateByNumericRange.AggregateByNumericRange",
+    "version": "0.1.0",
+    "interfaces": [
+        "base.PrimitiveBase"
+    ],
+    "name": "aggregator.aggregation.numeric.numeric_range_aggregation",
+    "source_code": "https://github.com/NewKnowledge/aggregator/blob/master/aggregator/__init__.py#L29",
+    "interface_type": "data_cleaning",
+    "interfaces_version": "0.1.0",
+    "output_type": [
+        "features"
+    ],
+    "library": "aggregation"
+}
