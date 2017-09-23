@@ -41,6 +41,9 @@ setup(
             'distil.PCAFeatures = punk.feature_selection.pca:PCAFeatures',
             'distil.RFFeatures = punk.feature_selection.rf:RFFeatures',
             'distil.Heteroscedasticity = punk.novelty_detection.heteroscedasticity:HeteroscedasticityTest',
+            'distil.AggregateByCategory = punk.aggregator.aggregateByCategory:AggregateByCategory',
+            'distil.AggregateByDateTime = punk.aggregator.aggregateByDateTime:AggregateByDateTime',
+            'distil.AggregateByNumericRange = punk.aggregator.aggregateByNumericRange:AggregateByNumericRange',
         ],
     },
 
