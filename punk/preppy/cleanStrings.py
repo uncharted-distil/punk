@@ -1,11 +1,10 @@
 import pandas as pd
 from typing import List
 
-from .clean_value import string_cleaner
 from primitive_interfaces.base import PrimitiveBase
 
 Inputs = pd.DataFrame
-Outputs = List[float]
+Outputs = pd.DataFrame
 Params = dict
 CallMetadata = dict
 
@@ -20,7 +19,7 @@ class CleanStrings(PrimitiveBase[Inputs, Outputs, Params]):
             "python3.6"
         ],
         "library": "punk",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanStrings.py",
         "is_class": True,
         "interface_type": "data_cleaning",
@@ -89,9 +88,5 @@ class CleanStrings(PrimitiveBase[Inputs, Outputs, Params]):
     def fit(self) -> None:
         pass
 
-    def transform(self, inputs: Inputs) -> Outputs:
-        output = []
-        for l in inputs:
-            output.append([string_cleaner(s) for s in l])
-
-        return output
+    def produce(self, inputs: Inputs) -> Outputs:
+        return inputs.applymap(str)

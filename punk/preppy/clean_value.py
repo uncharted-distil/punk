@@ -25,17 +25,17 @@ def header_cleaner(string):
 
 def number_cleaner(x,force=False):
     try:
-        x_str = unicode(x).strip()
+        x_str = str(x).strip()
     except:
         return np.nan
 
-    if x_str == unicode('nan'):
+    if x_str == str('nan'):
         if force:
             return 0.0
         else:
             return np.nan
 
-    x_str = ''.join([c for c in unicode(x) if c == '.' or c.isdigit() or c == '-' or c == 'e'])
+    x_str = ''.join([c for c in str(x) if c == '.' or c.isdigit() or c == '-' or c == 'e'])
     if not x_str:
         if force:
             return 0.0
@@ -49,9 +49,7 @@ def number_cleaner(x,force=False):
 
 
 def string_cleaner(x):
-    if isinstance(x, unicode):
+    if isinstance(x, str):
         return x
-    if isinstance(x, basestring):
-        return unicode(x, errors='ignore')
     else:
-        return unicode(str(x), errors='ignore')
+        return str(x)

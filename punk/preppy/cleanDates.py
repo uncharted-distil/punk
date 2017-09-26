@@ -6,7 +6,7 @@ from .clean_list import clean_dates
 from primitive_interfaces.base import PrimitiveBase
 
 Inputs = pd.DataFrame
-Outputs = List[datetime]
+Outputs = pd.DataFrame
 Params = dict
 CallMetadata = dict
 
@@ -22,7 +22,7 @@ class CleanDates(PrimitiveBase[Inputs, Outputs, Params]):
             "python3.6"
         ],
         "library": "punk",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanDates.py",
         "is_class": True,
         "interface_type": "data_cleaning",
@@ -90,5 +90,5 @@ class CleanDates(PrimitiveBase[Inputs, Outputs, Params]):
     def fit(self) -> None:
         pass
 
-    def transform(self, inputs: Inputs) -> Outputs:
-        return [clean_dates(l) for l in inputs]
+    def produce(self, inputs: Inputs) -> Outputs:
+        return inputs.apply(clean_dates)

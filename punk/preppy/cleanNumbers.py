@@ -2,10 +2,11 @@ import pandas as pd
 from typing import List
 
 from .clean_list import clean_numbers
+from .clean_value import number_cleaner
 from primitive_interfaces.base import PrimitiveBase
 
 Inputs = pd.DataFrame
-Outputs = List[float]
+Outputs = pd.DataFrame
 Params = dict
 CallMetadata = dict
 
@@ -20,7 +21,7 @@ class CleanNumbers(PrimitiveBase[Inputs, Outputs, Params]):
             "python3.6"
         ],
         "library": "punk",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanNumbers.py",
         "is_class": True,
         "interface_type": "data_cleaning",
@@ -88,5 +89,5 @@ class CleanNumbers(PrimitiveBase[Inputs, Outputs, Params]):
     def fit(self) -> None:
         pass
 
-    def transform(self, inputs: Inputs) -> Outputs:
-        return [clean_numbers(l) for l in data]
+    def produce(self, inputs: Inputs) -> Outputs:
+        return inputs.apply(clean_numbers)

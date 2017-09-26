@@ -1,147 +1,147 @@
 {
+    "output_type": [
+        "features"
+    ],
+    "id": "25a459ea-a219-37ba-a471-b2e6a5ddd5b8",
+    "team": "distil",
     "parameters": [
         {
-            "optional": true,
-            "default": "1000000",
-            "type": "builtins.int",
             "name": "max_iter",
+            "optional": true,
+            "type": "builtins.int",
+            "default": "1000000",
             "is_hyperparameter": true
         },
         {
-            "optional": true,
-            "default": "1e-08",
-            "type": "builtins.int",
             "name": "tol",
+            "optional": true,
+            "type": "builtins.int",
+            "default": "1e-08",
             "is_hyperparameter": true
         }
     ],
-    "id": "25a459ea-a219-37ba-a471-b2e6a5ddd5b8",
+    "version": "1.1.1",
+    "library": "punk",
     "compute_resources": {
-        "mem_per_gpu": [
-            0.0
-        ],
-        "disk_per_node": [
-            1.0
-        ],
-        "gpus_per_node": [
-            0
-        ],
         "sample_unit": [
             "MB"
         ],
         "expected_running_time": [
             5.0
         ],
-        "cores_per_node": [
+        "gpus_per_node": [
+            0
+        ],
+        "num_nodes": [
             1
         ],
         "sample_size": [
             1000.0,
             10.0
         ],
-        "num_nodes": [
-            1
+        "disk_per_node": [
+            1.0
         ],
         "mem_per_node": [
             1.0
+        ],
+        "mem_per_gpu": [
+            0.0
+        ],
+        "cores_per_node": [
+            1
         ]
     },
+    "name": "punk.novelty_detection.heteroscedasticity.HeteroscedasticityTest",
+    "methods_available": [
+        {
+            "name": "produce",
+            "returns": "typing.Tuple[typing.Tuple[float, int], typing.Tuple[float, int]]",
+            "parameters": [
+                {
+                    "name": "inputs",
+                    "optional": false,
+                    "type": "numpy.ndarray",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.Heteroscedasticity.produce",
+            "description": "Test heteroscedaticity of your data.\n\nThe consequence is that the likelihood of new data can be used for \nmodel selection and covariance estimation.\n\nCode taken from 'http://scikit-learn.org/stable/auto_examples/'             \n'decomposition/plot_pca_vs_fa_model_selection.html'.                        \n\nParams\n------  \ndata : array-like\n    Training data.\n\nReturns\n-------\n\"pca\" returns a two tuple of number of componenets and likelihood for \nbest principal componenets estimator.                                   \n\"fa\" returns a two tuple of number of componenets and likelihood for \nbest factor analysis estimator."
+        },
+        {
+            "name": "fit",
+            "returns": "builtins.NoneType",
+            "parameters": [],
+            "id": "d3m.primitives.distil.Heteroscedasticity.fit",
+            "description": ""
+        },
+        {
+            "name": "get_call_metadata",
+            "returns": "builtins.dict",
+            "parameters": [],
+            "id": "d3m.primitives.distil.Heteroscedasticity.get_call_metadata",
+            "description": ""
+        },
+        {
+            "name": "set_random_seed",
+            "returns": "builtins.NoneType",
+            "parameters": [
+                {
+                    "name": "seed",
+                    "optional": false,
+                    "type": "builtins.int",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.Heteroscedasticity.set_random_seed",
+            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use."
+        },
+        {
+            "name": "get_params",
+            "returns": "builtins.dict",
+            "parameters": [],
+            "id": "d3m.primitives.distil.Heteroscedasticity.get_params",
+            "description": ""
+        },
+        {
+            "name": "set_params",
+            "returns": "builtins.NoneType",
+            "parameters": [
+                {
+                    "name": "params",
+                    "optional": false,
+                    "type": "builtins.dict",
+                    "is_hyperparameter": false
+                }
+            ],
+            "id": "d3m.primitives.distil.Heteroscedasticity.set_params",
+            "description": ""
+        }
+    ],
+    "languages": [
+        "python3.6"
+    ],
+    "common_name": "HeteroscedasticityTest",
+    "task_type": [
+        "feature extraction"
+    ],
+    "original_name": "punk.novelty_detection.heteroscedasticity.HeteroscedasticityTest",
+    "schema_version": 1.0,
+    "interface_type": "data_cleaning",
+    "is_class": true,
+    "description": "Test heteroscedaticity and optimal principal subspace of data.",
+    "interfaces": [
+        "base.PrimitiveBase"
+    ],
+    "interfaces_version": "0.1.0",
     "build": [
         {
             "package": "punk",
             "type": "pip"
         }
     ],
-    "team": "distil",
-    "methods_available": [
-        {
-            "parameters": [
-                {
-                    "optional": false,
-                    "type": "builtins.dict",
-                    "name": "params",
-                    "is_hyperparameter": false
-                }
-            ],
-            "id": "d3m.primitives.distil.Heteroscedasticity.set_params",
-            "returns": "builtins.NoneType",
-            "name": "set_params",
-            "description": ""
-        },
-        {
-            "parameters": [],
-            "id": "d3m.primitives.distil.Heteroscedasticity.get_params",
-            "returns": "builtins.dict",
-            "name": "get_params",
-            "description": ""
-        },
-        {
-            "parameters": [],
-            "id": "d3m.primitives.distil.Heteroscedasticity.fit",
-            "returns": "builtins.NoneType",
-            "name": "fit",
-            "description": ""
-        },
-        {
-            "parameters": [
-                {
-                    "optional": false,
-                    "type": "builtins.int",
-                    "name": "seed",
-                    "is_hyperparameter": false
-                }
-            ],
-            "id": "d3m.primitives.distil.Heteroscedasticity.set_random_seed",
-            "returns": "builtins.NoneType",
-            "name": "set_random_seed",
-            "description": "Sets a random seed for all operations from now on inside the primitive.\n\nBy default it sets numpy's and Python's random seed.\n\nParameters\n----------\nseed : int\n    A random seed to use."
-        },
-        {
-            "parameters": [
-                {
-                    "optional": false,
-                    "type": "numpy.ndarray",
-                    "name": "inputs",
-                    "is_hyperparameter": false
-                }
-            ],
-            "id": "d3m.primitives.distil.Heteroscedasticity.produce",
-            "returns": "typing.Tuple[typing.Tuple[float, int], typing.Tuple[float, int]]",
-            "name": "produce",
-            "description": "Test heteroscedaticity of your data.\n\nThe consequence is that the likelihood of new data can be used for \nmodel selection and covariance estimation.\n\nCode taken from 'http://scikit-learn.org/stable/auto_examples/'             \n'decomposition/plot_pca_vs_fa_model_selection.html'.                        \n\nParams\n------  \ndata : array-like\n    Training data.\n\nReturns\n-------\n\"pca\" returns a two tuple of number of componenets and likelihood for \nbest principal componenets estimator.                                   \n\"fa\" returns a two tuple of number of componenets and likelihood for \nbest factor analysis estimator."
-        },
-        {
-            "parameters": [],
-            "id": "d3m.primitives.distil.Heteroscedasticity.get_call_metadata",
-            "returns": "builtins.dict",
-            "name": "get_call_metadata",
-            "description": ""
-        }
-    ],
     "algorithm_type": [
         "dimensionality reduction"
     ],
-    "original_name": "punk.novelty_detection.heteroscedasticity.HeteroscedasticityTest",
-    "task_type": [
-        "feature extraction"
-    ],
-    "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/novelty_detection/heteroscedasticity.py",
-    "interfaces": [
-        "base.PrimitiveBase"
-    ],
-    "is_class": true,
-    "output_type": [
-        "features"
-    ],
-    "version": "1.1.0",
-    "common_name": "HeteroscedasticityTest",
-    "library": "punk",
-    "name": "punk.novelty_detection.heteroscedasticity.HeteroscedasticityTest",
-    "languages": [
-        "python3.6"
-    ],
-    "schema_version": 1.0,
-    "interface_type": "data_cleaning",
-    "description": "Test heteroscedaticity and optimal principal subspace of data.",
-    "interfaces_version": "0.1.0"
+    "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/novelty_detection/heteroscedasticity.py"
 }
