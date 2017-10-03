@@ -13,7 +13,7 @@ CallMetadata = dict
 class CleanNumbers(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
-        "id": "d4582270-bc46-346a-9925-7bfc3e8d2bfc",
+        "id": "6a63181a-15c0-3820-a6bb-e4b5bc94e4d3",
         "name": "punk.preppy.cleanNumbers.CleanNumbers",
         "common_name": "CleanNumbers",
         "description": "Forcing just about anything that looks like a number into a float",
@@ -24,7 +24,6 @@ class CleanNumbers(PrimitiveBase[Inputs, Outputs, Params]):
         "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanNumbers.py",
         "is_class": True,
-        "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
             "data_preparation"                                              
         ],

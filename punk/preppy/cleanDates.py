@@ -14,7 +14,7 @@ CallMetadata = dict
 class CleanDates(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
-        "id": "8a2fe029-6817-35f6-8822-2674910d9e8f",
+        "id": "b84e483a-28df-3b89-962d-63bb74792287",
         "name": "punk.preppy.cleanDates.CleanDates",
         "common_name": "CleanDates",
         "description": "Forcing just about anything that looks like a datetime string into a datetime object",
@@ -25,7 +25,6 @@ class CleanDates(PrimitiveBase[Inputs, Outputs, Params]):
         "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanDates.py",
         "is_class": True,
-        "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
             "data_preparation"                                              
         ],

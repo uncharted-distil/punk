@@ -11,7 +11,7 @@ CallMetadata = dict
 class CleanStrings(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
-        "id": "447a0205-1066-3a6d-a001-e4822a0e6ed7",
+        "id": "fc6bf33a-f3e0-3496-aa47-9a40289661bc",
         "name": "punk.preppy.cleanStrings.CleanStrings",
         "common_name": "CleanDates",
         "description": "Forcing just about anything that looks like a string into a unicode object",
@@ -22,7 +22,6 @@ class CleanStrings(PrimitiveBase[Inputs, Outputs, Params]):
         "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/preppy/cleanStrings.py",
         "is_class": True,
-        "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
             "data_preparation"                                              
         ],
