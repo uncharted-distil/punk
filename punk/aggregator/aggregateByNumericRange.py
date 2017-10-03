@@ -13,7 +13,7 @@ CallMetadata = dict
 class AggregateByNumericRange(PrimitiveBase[Inputs, Outputs, Params]): 
     __author__ = 'distil'
     __metadata__ = {
-        "id": "67a642bc-9e36-3154-b21e-0b74744a8900",
+        "id": "5ab6f38f-d57a-30a7-8919-87d9d02954f6",
         "name": "punk.aggregator.aggregateByNumericRange.AggregateByNumericRange",
         "common_name": "NumericRangeAggregation",
         "description": "Determine the best bins for value counts and perform the aggregation",

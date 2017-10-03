@@ -13,7 +13,7 @@ CallMetadata = dict
 class AggregateByDateTime(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
-        "id": "8d683ecd-314b-374d-a8cb-39c9a509473f",
+        "id": "0a67edef-d032-37b7-b88c-792f567177e9",
         "name": "punk.aggregator.aggregateByDateTime.AggregateByDateTime",
         "common_name": "DatetimeAggregation",
         "description": "Arbitrary groupby aggregations over intervals of time",
@@ -24,7 +24,6 @@ class AggregateByDateTime(PrimitiveBase[Inputs, Outputs, Params]):
         "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/aggregator/aggregateByDateTime.py",
         "is_class": True,
-        "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
             "aggregation"                                              
         ],

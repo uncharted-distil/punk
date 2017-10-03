@@ -13,7 +13,7 @@ CallMetadata = dict
 class AggregateByCategory(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
-        "id": "049247df-8779-36f3-9547-2ee2e6183b62",
+        "id": "1b7d4ee9-681c-3851-8094-97b2f5e2247b",
         "name": "punk.aggregator.aggregateByCategory.AggregateByCategory",
         "common_name": "CategoricalAggregation",
         "description": "Arbitrary groupby aggregations",
@@ -24,7 +24,6 @@ class AggregateByCategory(PrimitiveBase[Inputs, Outputs, Params]):
         "version": "1.1.1",
         "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/aggregator/aggregateByCategory.py",
         "is_class": True,
-        "interface_type": "data_cleaning",
         "algorithm_type": [                                                         
             "aggregation"                                              
         ],
