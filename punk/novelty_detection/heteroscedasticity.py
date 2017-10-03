@@ -12,7 +12,7 @@ CallMetadata = dict
 class HeteroscedasticityTest(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = 'distil'
     __metadata__ = {
-        "id": "25a459ea-a219-37ba-a471-b2e6a5ddd5b8",
+        "id": "7742ac9a-7daa-3403-8421-b0c28a16350e",
         "name": "punk.novelty_detection.heteroscedasticity.HeteroscedasticityTest",
         "common_name": "HeteroscedasticityTest",
         "description": "Test heteroscedaticity and optimal principal subspace of data.",
@@ -33,7 +33,6 @@ class HeteroscedasticityTest(PrimitiveBase[Inputs, Outputs, Params]):
             "features"
         ], 
         "team": "distil",
-        "interface_type" : "data_cleaning",
         "schema_version": 1.0,
         "build": [
             {
