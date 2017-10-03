@@ -11,7 +11,7 @@ CallMetadata = dict
 class PCAFeatures(PrimitiveBase[Input, Output, Params]):
     __author__ = "distil"
     __metadata__ = {
-        "id": "f7543334-97f7-3c43-978d-2d0b03829d4d",
+        "id": "142c4056-ccd3-3530-9fcc-e9fa7052662f",
         "name": "punk.feature_selection.pca.PCAFeatures",
         "common_name": "PCAFeatures",
         "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
@@ -31,7 +31,6 @@ class PCAFeatures(PrimitiveBase[Input, Output, Params]):
             "features"
         ], 
         "team": "distil",
-        "interface_type" : "data_cleaning",
         "schema_version": 1.0,
         "build": [
             {

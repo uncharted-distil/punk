@@ -14,7 +14,7 @@ CallMetadata = dict
 class RFFeatures(PrimitiveBase[Inputs, Outputs, Params]):
     __author__ = "distil"
     __metadata__ = {
-        "id": "fa654741-8ab9-39ec-a9a7-3d41aaf67932",
+        "id": "b970e9af-0e80-382b-8a46-fbd64e3dc6fa",
         "name": "punk.feature_selection.rf.RFFeatures",
         "common_name": "RFFeatures",
         "description": "Ranking of features using Random Forest.",
@@ -34,7 +34,6 @@ class RFFeatures(PrimitiveBase[Inputs, Outputs, Params]):
             "features"
         ], 
         "team": "distil",
-        "interface_type" : "data_cleaning",
         "schema_version": 1.0,
         "build": [
             {
