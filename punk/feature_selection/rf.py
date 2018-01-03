@@ -111,6 +111,7 @@ class RFFeatures(FeaturizationTransformerPrimitiveBase[Inputs, Outputs, RFHyperp
         #                 'scoring': self.scoring}
 
     def produce(self, *, inputs: Inputs) -> Outputs:
+        print(self.hyperparams)
         """ Rank features using Random Forest classifier.                           
                                                                                 
 	    Use GridSearchCV to optimize the scoring method for a random forest         
@@ -131,9 +132,9 @@ class RFFeatures(FeaturizationTransformerPrimitiveBase[Inputs, Outputs, RFHyperp
         self.X, self.y = inputs
 
         # Chose classfier or regressor
-        if self.hyperparams['problem_type']=="classification":
+        if self.hyperparams.get('problem_type')=="classification":
             rf = Pipeline([('clf', RandomForestClassifier(random_state=1))])    
-        elif self.problem_type=="regression":
+        elif self.hyperparams.get('problem_type')=="regression":
             rf = Pipeline([('clf', RandomForestRegressor(random_state=1))])
         else:
             raise ValueError(
@@ -144,10 +145,10 @@ class RFFeatures(FeaturizationTransformerPrimitiveBase[Inputs, Outputs, RFHyperp
         param_grid = [{'clf__n_estimators': [10, 100, 1000]},]                                          
         gs_rf = GridSearchCV(rf,                                                    
                              param_grid, 
-                             cv      = self.hyperparams['cross_validation'],
-                             scoring = self.hyperparams['scoring'],                                     
-                             verbose = self.hyperparams['verbose'],                                           
-                             n_jobs  = self.hyperparams['n_jobs'])                                           
+                             cv      = self.hyperparams.get('cross_validation'),
+                             scoring = self.hyperparams.get('scoring'),                                     
+                             verbose = self.hyperparams.get('verbose'),                                           
+                             n_jobs  = self.hyperparams.get('n_jobs'))                                           
         gs_rf.fit(self.X, self.y)                                                             
                                                                                 
         # Rank from most to least important features (0, d-1)                       

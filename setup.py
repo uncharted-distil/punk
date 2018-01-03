@@ -45,9 +45,9 @@ setup(
             # 'distil.AggregateByCategory = punk.aggregator.aggregateByCategory:AggregateByCategory',
             # 'distil.AggregateByDateTime = punk.aggregator.aggregateByDateTime:AggregateByDateTime',
             # 'distil.AggregateByNumericRange = punk.aggregator.aggregateByNumericRange:AggregateByNumericRange',
-            # 'distil.CleanDates = punk.preppy.cleanDates:CleanDates',
-            # 'distil.CleanNumbers = punk.preppy.cleanNumbers:CleanNumbers',
-            # 'distil.CleanStrings = punk.preppy.cleanStrings:CleanStrings'
+            'distil.CleanDates = punk.preppy.cleanDates:CleanDates',
+            'distil.CleanNumbers = punk.preppy.cleanNumbers:CleanNumbers',
+            'distil.CleanStrings = punk.preppy.cleanStrings:CleanStrings'
         ],
     },
 
