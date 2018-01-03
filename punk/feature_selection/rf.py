@@ -1,80 +1,63 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.pipeline import Pipeline                                                                
 from sklearn.model_selection import GridSearchCV
-from primitive_interfaces.base import PrimitiveBase 
+from primitive_interfaces.featurization import FeaturizationTransformerPrimitiveBase
+from d3m_metadata import container, hyperparams, metadata, params
 
-Inputs = Tuple[np.ndarray, np.ndarray]
-Outputs = List[int]
-Params = dict
-CallMetadata = dict
+Inputs = container.List[container.numpy.ndarray]
+Outputs = container.List[int]
 
+class RFHyperparams(hyperparams.Hyperparams):
+    problem_type = hyperparams.Hyperparameter(default='classification')
+    scoring = hyperparams.Hyperparameter(default='accuracy')
+    crossval = hyperparams.Hyperparameter(default=3)
+    verbose = hyperparams.Hyperparameter(default=0)
+    n_jobs = hyperparams.Hyperparameter(default=1)
 
-class RFFeatures(PrimitiveBase[Inputs, Outputs, Params]):
-    __author__ = "distil"
-    __metadata__ = {
+class RFFeatures(FeaturizationTransformerPrimitiveBase[Inputs, Outputs, RFHyperparams]):
+    __author__ = "Distil"
+    metadata = metadata.PrimitiveMetadata({
         "id": "b970e9af-0e80-382b-8a46-fbd64e3dc6fa",
-        "name": "punk.feature_selection.rf.RFFeatures",
-        "common_name": "RFFeatures",
-        "description": "Ranking of features using Random Forest.",
-        "languages": [
-            "python3.6"
-        ],
-        "library": "punk",
-        "version": "1.1.1",
-        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/feature_selection/rf.py",
-        "algorithm_type": [                                                         
-            "decision tree"                                              
-        ],
-        "task_type": [
-            "feature extraction"
-        ],
-        "output_type": [
-            "features"
-        ], 
-        "team": "distil",
-        "schema_version": 1.0,
-        "build": [
-            {
-                "type": "pip",
-                "package": "punk"
-            }
-        ],
-        "compute_resources": {
-            "sample_size": [
-                1000.0, 
-                10.0
-            ],
-            "sample_unit": [
-                "MB"
-            ],
-            "num_nodes": [
-                1
-            ],
-            "cores_per_node": [
-                1
-            ],
-            "gpus_per_node": [
-                0
-            ],
-            "mem_per_node": [
-                1.0
-            ],
-            "disk_per_node": [
-                1.0
-            ],
-            "mem_per_gpu": [
-                0.0
-            ],
-            "expected_running_time": [
-                5.0
-            ]
-        }
-    }
+        "version": "2.0.0",
+        "schema": "https://metadata.datadrivendiscovery.org/schemas/v0/primitive.json",
+        "description": "Perform feature selection using Random Forest",
+        "name": "Random Forest-based feature selection",
+        "python_path": "d3m.primitives.distil.RFFeatures",
+        "original_python_path": "punk.feature_selection.rf.RFFeatures",
+        "algorithm_types": ["RANDOM_FOREST"],
+        "installation": [{
+            "package": "punk",
+            "type": "PIP",
+            "version": "2.0.0"
+        }],
+        "primitive_code": {
+            "class_type_arguments": {},
+            "interfaces_version": "2017.12.27",
+            "interfaces": ["primitives_interfaces.featurization.FeaturizationTransformerPrimitiveBase"],
+            "hyperparams": {},
+            "arguments": {
+                "inputs": {
+                    "type": "container.numpy.ndarray",
+                    "kind": "PIPELINE"
+                }
+            },
+            "class_methods": {},
+            "class_attributes": {},
+            "instance_attributes": {} 
+        },
+        "primitive_family": "FEATURE_SELECTION",
+        "source": {
+            "name": "Distil",
+            "contact": "http://newknowledge.io/contact/"
+        },
+        "structural_type": "numpy.ndarray"
+    })
 
-    def __init__(self, problem_type: str = 'classification', scoring: str ='accuracy',
-                crossval: int =3, verbose: int = 0, n_jobs: int = 1):
+    def __init__(self, *, hyperparams:RFHyperparams, random_seed: int = 0, docker_containers: Dict[str, str] = None) -> None:
+        super().__init__(hyperparams=hyperparams, random_seed=random_seed, docker_containers=docker_containers)
+
         """
         Params
         ------
@@ -119,28 +102,15 @@ class RFFeatures(PrimitiveBase[Inputs, Outputs, Params]):
         verbose : integer
             Controls the verbosity: the higher, the more messages.
         """
-        self.problem_type = problem_type
-        self.crossval      = crossval
-        self.scoring = scoring
-        self.n_jobs  = n_jobs
-        self.verbose = verbose
-        self.params  = {'problem_type': self.problem_type, 'cross_validation': self.crossval,
-                        'scoring': self.scoring}
-        self.callMetadata = {}
+        # self.__problem_type__ = self.hyperparams['problem_type']
+        # self.__crossval__      = self.hyperparams['crossval']
+        # self.scoring = self.hyperparams['scoring']
+        # self.n_jobs  = self.hyperparams['n_jobs']
+        # self.verbose = self.hyperparams['verbose']
+        # self.params  = {'problem_type': self.problem_type, 'cross_validation': self.crossval,
+        #                 'scoring': self.scoring}
 
-    def get_params(self) -> Params:
-        return self.params
-
-    def set_params(self, params: Params) -> None:
-        self.params = params
-
-    def get_call_metadata(self) -> CallMetadata:
-        return self.callMetadata
-
-    def fit(self) -> None:
-        return
-
-    def produce(self, inputs: Inputs) -> Outputs:
+    def produce(self, *, inputs: Inputs) -> Outputs:
         """ Rank features using Random Forest classifier.                           
                                                                                 
 	    Use GridSearchCV to optimize the scoring method for a random forest         
@@ -161,7 +131,7 @@ class RFFeatures(PrimitiveBase[Inputs, Outputs, Params]):
         self.X, self.y = inputs
 
         # Chose classfier or regressor
-        if self.problem_type=="classification":
+        if self.hyperparams['problem_type']=="classification":
             rf = Pipeline([('clf', RandomForestClassifier(random_state=1))])    
         elif self.problem_type=="regression":
             rf = Pipeline([('clf', RandomForestRegressor(random_state=1))])
@@ -171,13 +141,13 @@ class RFFeatures(PrimitiveBase[Inputs, Outputs, Params]):
             )
 
         # Gridsearch for hyperparam optimization
-        param_grid = [{'clf__n_estimators': [10, 100, 1000, 10000]},]                                          
+        param_grid = [{'clf__n_estimators': [10, 100, 1000]},]                                          
         gs_rf = GridSearchCV(rf,                                                    
                              param_grid, 
-                             cv      = self.crossval,
-                             scoring = self.scoring,                                     
-                             verbose = self.verbose,                                           
-                             n_jobs  = self.n_jobs)                                           
+                             cv      = self.hyperparams['cross_validation'],
+                             scoring = self.hyperparams['scoring'],                                     
+                             verbose = self.hyperparams['verbose'],                                           
+                             n_jobs  = self.hyperparams['n_jobs'])                                           
         gs_rf.fit(self.X, self.y)                                                             
                                                                                 
         # Rank from most to least important features (0, d-1)                       

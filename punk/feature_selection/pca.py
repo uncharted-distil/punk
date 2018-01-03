@@ -1,94 +1,68 @@
 import numpy as np
+import typing
 from sklearn.decomposition import PCA
 from typing import NamedTuple, List
-from primitive_interfaces.base import PrimitiveBase
+from primitive_interfaces.featurization import FeaturizationTransformerPrimitiveBase
+from d3m_metadata import container, hyperparams, metadata, params
 
-Input = np.ndarray
-Output = List[int]
-Params = dict
-CallMetadata = dict
+Input = container.numpy.ndarray
+Output = container.List[int]
 
-class PCAFeatures(PrimitiveBase[Input, Output, Params]):
-    __author__ = "distil"
-    __metadata__ = {
+class Hyperparams(hyperparams.Hyperparams):
+    pass
+
+class PCAFeatures(FeaturizationTransformerPrimitiveBase[Input, Output, Hyperparams]):
+    __author__ = "Distil"
+    metadata = metadata.PrimitiveMetadata({
         "id": "142c4056-ccd3-3530-9fcc-e9fa7052662f",
-        "name": "punk.feature_selection.pca.PCAFeatures",
-        "common_name": "PCAFeatures",
-        "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
-        "languages": [
-            "python3.6"
-        ],
-        "library": "punk",
-        "version": "1.1.1",
-        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/feature_selection/pca.py",
-        "algorithm_type": [                                                         
-            "dimensionality reduction"                                              
-        ],
-        "task_type": [
-            "feature extraction"
-        ],
-        "output_type": [
-            "features"
-        ], 
-        "team": "distil",
-        "schema_version": 1.0,
-        "build": [
-            {
-                "type": "pip",
-                "package": "punk"
-            }
-        ],
-         "compute_resources": {
-            "sample_size": [
-                1000.0, 
-                10.0
-            ],
-            "sample_unit": [
-                "MB"
-            ],
-            "num_nodes": [
-                1
-            ],
-            "cores_per_node": [
-                1
-            ],
-            "gpus_per_node": [
-                0
-            ],
-            "mem_per_node": [
-                1.0
-            ],
-            "disk_per_node": [
-                1.0
-            ],
-            "mem_per_gpu": [
-                0.0
-            ],
-            "expected_running_time": [
-                5.0
-            ]
-        }
-    }
+        "version": "2.0.0",
+        "schema": "https://metadata.datadrivendiscovery.org/schemas/v0/primitive.json",
+        "description": "Perform feature selection using PCA components",
+        "name": "PCA-based feature selection",
+        "python_path": "d3m.primitives.distil.PCAFeatures",
+        "original_python_path": "punk.feature_selection.pca.PCAFeatures",
+        "algorithm_types": ["PRINCIPAL_COMPONENT_ANALYSIS"],
+        "installation": [{
+            "package": "punk",
+            "type": "PIP",
+            "version": "2.0.0"
+        }],
+        "primitive_code": {
+            "class_type_arguments": {},
+            "interfaces_version": "2017.12.27",
+            "interfaces": ["primitives_interfaces.featurization.FeaturizationTransformerPrimitiveBase"],
+            "hyperparams": {},
+            "arguments": {
+                "inputs": {
+                    "type": "container.numpy.ndarray",
+                    "kind": "PIPELINE"
+                }
+            },
+            "class_methods": {},
+            "instance_methods": {
+                "produce": {
+                    "kind": "PRODUCE",
+                    "description": "Accept numpy array and return a list of column indices, sorted by feature significance",
+                    "arguments": ["inputs"],
+                    "returns": "container.List[int]"
+                }
+            },
+            "class_attributes": {},
+            "instance_attributes": {} 
+        },
+        "primitive_family": "FEATURE_SELECTION",
+        "source": {
+            "name": "Distil",
+            "contact": "http://newknowledge.io/contact/"
+        },
+        "structural_type": "numpy.ndarray"
+    })
 
-
-    def __init__(self) -> None:
-        self.callMetadata = {}
-        self.params = {}
+    def __init__(self, *, hyperparams: Hyperparams, random_seed: int = 0, docker_containers: typing.Dict[str, str] = None) -> None:
+        super().__init__(hyperparams=hyperparams, random_seed=random_seed, docker_containers=docker_containers)
         pass
 
-    def fit(self) -> None:
-        pass
-
-    def get_params(self) -> Params:
-        return self.params
-
-    def set_params(self, params: Params) -> None:
-        self.params = params
-
-    def get_call_metadata(self) -> CallMetadata:
-        return self.callMetadata
-
-    def produce(self, inputs: Input) -> Output:
+    def produce(self, *, inputs: Input) -> Output:
         """ Perform PCA and return a list of the indices of the most important
         features, ordered by contribution to first PCA component
                                                                                 
