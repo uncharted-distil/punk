@@ -6,55 +6,7 @@ from sklearn.preprocessing import normalize
 from datetime import datetime
 
 class PCAFeatures():
-    '''
-    __author__ = "distil"
-    metadata = metadata.PrimitiveMetadata({
-        "id": "142c4056-ccd3-3530-9fcc-e9fa7052662f",
-        "version": "2.0.0",
-        "schema": "https://metadata.datadrivendiscovery.org/schemas/v0/primitive.json",
-        "description": "Perform feature selection using PCA components",
-        "name": "PCA-based feature selection",
-        "python_path": "d3m.primitives.distil.PCAFeatures",
-        "original_python_path": "punk.feature_selection.pca.PCAFeatures",
-        "algorithm_types": ["PRINCIPAL_COMPONENT_ANALYSIS"],
-        "installation": [{
-            "package": "punk",
-            "type": "PIP",
-            "version": "2.0.0"
-        }],
-        "primitive_code": {
-            "class_type_arguments": {},
-            "interfaces_version": "",
-            "interfaces": ["primitives_interfaces.featurization.FeaturizationTransformerPrimitiveBase"],
-            "hyperparams": {},
-            "arguments": {
-                "inputs": {
-                    "type": "container.numpy.ndarray",
-                    "kind": "PIPELINE"
-                }
-            },
-            "class_methods": {},
-            "instance_methods": {
-                "produce": {
-                    "kind": "PRODUCE",
-                    "description": "Accept numpy array and return a list of column indices, sorted by feature significance",
-                    "arguments": ["inputs"],
-                    "returns": "container.List[int]"
-                }
-            },
-            "class_attributes": {},
-            "instance_attributes": {} 
-        },
-        "primitive_family": "FEATURE_SELECTION",
-        "source": {
-            "name": "New Knowledge",
-            "contact": "sandeep@newknowledge.io"
-        },
-        "structural_type": "numpy.ndarray"
-    })
-    '''
-
-    def produce(self, inputs: pd.DataFrame) -> pd.DataFrame:
+    def rank_features(self, inputs: pd.DataFrame) -> pd.DataFrame:
         """ Perform PCA and return a list of the indices of the most important
         features, ordered by contribution to first PCA component
                                                                                 
@@ -115,4 +67,4 @@ if __name__ == '__main__':
     inputs = pd.DataFrame(np.random.rand(1000000,10))
     inputs[1] = inputs[1].apply(lambda x: x * 10.0)
     inputs[5] = inputs[5].apply(lambda x: 'blarg')
-    print(f.produce(inputs))
+    print(f.rank_features(inputs))
