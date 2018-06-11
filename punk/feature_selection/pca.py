@@ -1,12 +1,14 @@
 import numpy as np
+import logging
+import pandas as pd
 from sklearn.decomposition import PCA
-from ..base import DataCleaningPrimitiveBase
+from sklearn.preprocessing import normalize
+from datetime import datetime
 
-
-class PCAFeatures(DataCleaningPrimitiveBase):
-
-    def fit(self, intype, data):
-        """ Do PCA and return the ranked features.                                  
+class PCAFeatures():
+    def rank_features(self, inputs: pd.DataFrame) -> pd.DataFrame:
+        """ Perform PCA and return a list of the indices of the most important
+        features, ordered by contribution to first PCA component
                                                                                 
         The matrix M will correspond to the absolute value of the components of 
         the decomposiiton thus giving a matrix where each column corresponds to 
@@ -29,40 +31,40 @@ class PCAFeatures(DataCleaningPrimitiveBase):
         features for the first principal. Component are in ascending order      
         (most important feature 0, least important feature n_features-1).       
                                                                                 
-        "importance_onallpcs" corresponds to the indices of the one most        
-        important feature for each principal components.                        
-                                                                                
-        "explained_variance_ratio" Percentage of variance explained by each of  
-        the selected components.                                                
         
         Params 
         ------- 
-        intype : str
-            Expect ``matrix``.
-        data : array-like, [n_samples, n_features]
+        data : np.ndarray, [n_samples, n_features]
             Training data.
-        """  
-        if isinstance(intype, (list, tuple)):
-            assert(intype[0]=="matrix")
-        else:
-            raise ValueError("Fit expected a 'matrix' an a intype.")
+        """
 
         pca = PCA()
-        pca.fit_transform(data)
 
-        self.components_ = pca.components_
-        self.explained_variance_ratio_ = pca.explained_variance_ratio_
+        try:
+            pca.fit(normalize( \
+                            inputs.apply(pd.to_numeric, errors='coerce') \
+                            .applymap(lambda x: 0.0 if np.isnan(x) else x) \
+                            .values, axis=0))
 
-        M = np.absolute(pca.components_.T)
-        # Rank features based on contribtuions to 1st PC
-        self.importance_on1stpc = np.argsort(M[:,0], axis=0)[::-1]
-        # Rank features based on contributions to PCs 
-        self.importance_onallpcs = np.argmax(M, axis=0)
+            importance_on1stpc= np.argsort( \
+                                np.absolute( \
+                                pca.components_[0,:]))[::-1]
 
-        return self
+            scores = [np.absolute(pca.components_[0,i]) for i in importance_on1stpc]
+        except:
+            logging.exception("Failed")
+            # If any error occurs, just return indices in original order
+            # In the future we should consider a better error handling strategy
+            importance_on1stpc = [i for i in range(inputs.shape[0])]
+            scores = [0.0 for i in importance_on1stpc]
 
-    def transform(self, data=None):
-        return {
-            "importance_on1stpc": self.importance_on1stpc,
-            "importance_onallpcs": self.importance_onallpcs
-        }
+        return pd.DataFrame({'features': importance_on1stpc, 'scores': scores})
+
+
+if __name__ == '__main__':
+    f = PCAFeatures()
+    df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c'], 'c': [2.0, 3.0, 2.0]})
+    inputs = pd.DataFrame(np.random.rand(1000000,10))
+    inputs[1] = inputs[1].apply(lambda x: x * 10.0)
+    inputs[5] = inputs[5].apply(lambda x: 'blarg')
+    print(f.rank_features(inputs))

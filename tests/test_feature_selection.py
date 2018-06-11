@@ -19,18 +19,11 @@ class TestPCA(unittest.TestCase):
                                                                                 
     def test_pca(self):
         rankings = PCAFeatures()
-        rankings.fit(["matrix"], self.X)
-        importances = rankings.transform()
+        importances = rankings.produce(self.X)
 
-        self.assertTrue( np.all(np.isfinite( rankings.components_ )) )
-        self.assertTrue( np.all(np.isfinite( rankings.explained_variance_ratio_ )) )
         self.assertTrue( 
             np.array_equal(
-                importances["importance_on1stpc"], np.array([2, 3, 0, 1])) )
-        self.assertTrue( 
-            np.array_equal(
-                importances["importance_onallpcs"], np.array([2, 1, 0, 2])) )
-
+                importances, np.array([2, 3, 0, 1])) )
 
 class TestRFC(unittest.TestCase):
     def setUp(self):
@@ -44,8 +37,8 @@ class TestRFC(unittest.TestCase):
     def test_rfc(self):
         rf = RFFeatures(problem_type="classification", cv=3, 
                          scoring="accuracy", verbose=0, n_jobs=1)
-        rf.fit(("matrix", "matrix"), (self.X, self.y))
-        indices = rf.transform()
+        indices = rf.produce((self.X, self.y))
+
 
         self.assertTrue( np.all(np.isfinite( rf.feature_importances )) )
         importances = np.array([9, 12, 6, 11, 0, 10, 5, 3, 1, 8, 4, 7, 2])
@@ -60,9 +53,11 @@ class TestRFR(unittest.TestCase):
     def test_rfr(self):
         rf = RFFeatures(problem_type="regression", cv=3,
                          scoring="r2", verbose=0, n_jobs=1)
-        rf.fit(("matrix", "matrix"), (self.X, self.y))
-        indices = rf.transform()
+        indices = rf.produce((self.X, self.y))
     
         self.assertTrue( np.all(np.isfinite( rf.feature_importances )) )
         importances = np.array([5, 12, 7, 0, 4, 10, 9, 6, 11, 2, 8, 1, 3])
         self.assertTrue( np.array_equal(indices, importances) )
+
+if __name__ == '__main__':
+    unittest.main()
