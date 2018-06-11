@@ -4,7 +4,9 @@ import sys
 import json
 import logging
 from punk.feature_selection import PCAFeatures, RFFeatures
-from punk.novelty_detection import HeteroscedasticityTest
+from punk.preppy.cleanDates import CleanDates
+from punk.preppy.cleanNumbers import CleanNumbers
+from punk.preppy.cleanStrings import CleanStrings
 
 app = Flask(__name__)
 
@@ -13,7 +15,7 @@ def fixDummyHeaders(headers, dummy_headers, indices):
     visited = set()
     for index in indices:
         currHeader = dummy_headers[index]
-        fixedIndex = headers[currHeader.split('_')[0]]
+        fixedIndex = headers[currHeader.split('$$')[0]]
 
         if not fixedIndex in visited:
             results.append(fixedIndex)
@@ -22,16 +24,20 @@ def fixDummyHeaders(headers, dummy_headers, indices):
 
 @app.route("/pca", methods=['POST'])
 def predictPCAFeatures():
-    frame = pd.read_csv(request.files.get('file'))
+    cs = CleanStrings(hyperparams={})
+    cn = CleanNumbers(hyperparams={})
+    frame = cs.produce(inputs=cn.produce(inputs=pd.read_csv(request.files.get('file'))))
     headerNumStrings = { frame.columns.values[i]: i for i in range(len(frame.columns.values))}
-    dummies = pd.get_dummies(frame)
-    pca = PCAFeatures()
-    results = pca.produce(dummies).tolist()
+    dummies = pd.get_dummies(frame, prefix_sep='$$')
+    pca = PCAFeatures(hyperparams={})
+    results = pca.produce(inputs=dummies).tolist()
     return json.dumps(fixDummyHeaders(headerNumStrings, dummies.columns.values, results))
 
 @app.route("/rf", methods=['POST'])
 def predictRFFeatures():
-    frame = pd.read_csv(request.files.get('file'))
+    cs = CleanStrings(hyperparams={})
+    cn = CleanNumbers(hyperparams={})
+    frame = cs.produce(inputs=cn.produce(inputs=pd.read_csv(request.files.get('file'))))
     try:
         targetName = request.form.get('target')
         target = frame[targetName]
@@ -40,14 +46,14 @@ def predictRFFeatures():
         return {
             "error": "Target column not found in file. Please include a parameter 'target' in the body of the request that contains the name of the target header"
         }
-    rf = RFFeatures()
+    rf = RFFeatures(hyperparams={})
     headerNumStrings = { frame.columns.values[i]: i for i in range(len(frame.columns.values))}
     dummyTrain = pd.get_dummies(frame)
-    results = rf.produce((dummyTrain, pd.get_dummies(target))).tolist()
+    results = rf.produce(inputs=(dummyTrain, pd.get_dummies(target, prefix_sep='$$'))).tolist()
     return json.dumps(fixDummyHeaders(headerNumStrings, dummyTrain.columns.values, results))
 
-@app.route("/hetero", methods=['POST'])
-def predictHetero():
-    frame = pd.read_csv(request.files.get('file'))
-    hetero = HeteroscedasticityTest()
-    return json.dumps(hetero.produce(frame))
+# @app.route("/hetero", methods=['POST'])
+# def predictHetero():
+#     frame = pd.read_csv(request.files.get('file'))
+#     hetero = HeteroscedasticityTest()
+#     return json.dumps(hetero.produce(frame))

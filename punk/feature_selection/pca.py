@@ -1,94 +1,60 @@
 import numpy as np
+import logging
+import pandas as pd
 from sklearn.decomposition import PCA
-from typing import NamedTuple, List
-from primitive_interfaces.base import PrimitiveBase
+from sklearn.preprocessing import normalize
+from datetime import datetime
 
-Input = np.ndarray
-Output = List[int]
-Params = dict
-CallMetadata = dict
-
-class PCAFeatures(PrimitiveBase[Input, Output, Params]):
+class PCAFeatures():
+    '''
     __author__ = "distil"
-    __metadata__ = {
+    metadata = metadata.PrimitiveMetadata({
         "id": "142c4056-ccd3-3530-9fcc-e9fa7052662f",
-        "name": "punk.feature_selection.pca.PCAFeatures",
-        "common_name": "PCAFeatures",
-        "description": "Ranking of features using principal component analysis. Returns a ranking of the features based on the magnitude of their contributions to the first principal componenet and a ranking of the features based on the highest magnitude contribution to all the principal componenets.",
-        "languages": [
-            "python3.6"
-        ],
-        "library": "punk",
-        "version": "1.1.1",
-        "source_code": "https://github.com/NewKnowledge/punk/blob/dev/punk/feature_selection/pca.py",
-        "algorithm_type": [                                                         
-            "dimensionality reduction"                                              
-        ],
-        "task_type": [
-            "feature extraction"
-        ],
-        "output_type": [
-            "features"
-        ], 
-        "team": "distil",
-        "schema_version": 1.0,
-        "build": [
-            {
-                "type": "pip",
-                "package": "punk"
-            }
-        ],
-         "compute_resources": {
-            "sample_size": [
-                1000.0, 
-                10.0
-            ],
-            "sample_unit": [
-                "MB"
-            ],
-            "num_nodes": [
-                1
-            ],
-            "cores_per_node": [
-                1
-            ],
-            "gpus_per_node": [
-                0
-            ],
-            "mem_per_node": [
-                1.0
-            ],
-            "disk_per_node": [
-                1.0
-            ],
-            "mem_per_gpu": [
-                0.0
-            ],
-            "expected_running_time": [
-                5.0
-            ]
-        }
-    }
+        "version": "2.0.0",
+        "schema": "https://metadata.datadrivendiscovery.org/schemas/v0/primitive.json",
+        "description": "Perform feature selection using PCA components",
+        "name": "PCA-based feature selection",
+        "python_path": "d3m.primitives.distil.PCAFeatures",
+        "original_python_path": "punk.feature_selection.pca.PCAFeatures",
+        "algorithm_types": ["PRINCIPAL_COMPONENT_ANALYSIS"],
+        "installation": [{
+            "package": "punk",
+            "type": "PIP",
+            "version": "2.0.0"
+        }],
+        "primitive_code": {
+            "class_type_arguments": {},
+            "interfaces_version": "",
+            "interfaces": ["primitives_interfaces.featurization.FeaturizationTransformerPrimitiveBase"],
+            "hyperparams": {},
+            "arguments": {
+                "inputs": {
+                    "type": "container.numpy.ndarray",
+                    "kind": "PIPELINE"
+                }
+            },
+            "class_methods": {},
+            "instance_methods": {
+                "produce": {
+                    "kind": "PRODUCE",
+                    "description": "Accept numpy array and return a list of column indices, sorted by feature significance",
+                    "arguments": ["inputs"],
+                    "returns": "container.List[int]"
+                }
+            },
+            "class_attributes": {},
+            "instance_attributes": {} 
+        },
+        "primitive_family": "FEATURE_SELECTION",
+        "source": {
+            "name": "New Knowledge",
+            "contact": "sandeep@newknowledge.io"
+        },
+        "structural_type": "numpy.ndarray"
+    })
+    '''
 
-
-    def __init__(self) -> None:
-        self.callMetadata = {}
-        self.params = {}
-        pass
-
-    def fit(self) -> None:
-        pass
-
-    def get_params(self) -> Params:
-        return self.params
-
-    def set_params(self, params: Params) -> None:
-        self.params = params
-
-    def get_call_metadata(self) -> CallMetadata:
-        return self.callMetadata
-
-    def produce(self, inputs: Input) -> Output:
+    def produce(self, inputs: pd.DataFrame) -> pd.DataFrame:
         """ Perform PCA and return a list of the indices of the most important
         features, ordered by contribution to first PCA component
                                                                                 
@@ -123,15 +89,30 @@ class PCAFeatures(PrimitiveBase[Input, Output, Params]):
         pca = PCA()
 
         try:
-            pca.fit_transform(inputs)
+            pca.fit(normalize( \
+                            inputs.apply(pd.to_numeric, errors='coerce') \
+                            .applymap(lambda x: 0.0 if np.isnan(x) else x) \
+                            .values, axis=0))
 
-            M = np.absolute(pca.components_.T)
+            importance_on1stpc= np.argsort( \
+                                np.absolute( \
+                                pca.components_[0,:]))[::-1]
 
-            # Rank features based on contribtuions to 1st PC
-            self.importance_on1stpc = np.argsort(M[:,0], axis=0)[::-1]
+            scores = [np.absolute(pca.components_[0,i]) for i in importance_on1stpc]
         except:
+            logging.exception("Failed")
             # If any error occurs, just return indices in original order
             # In the future we should consider a better error handling strategy
-            self.importance_on1stpc = [i for i in range(inputs.shape[0])]
+            importance_on1stpc = [i for i in range(inputs.shape[0])]
+            scores = [0.0 for i in importance_on1stpc]
 
-        return self.importance_on1stpc
+        return pd.DataFrame({'features': importance_on1stpc, 'scores': scores})
+
+
+if __name__ == '__main__':
+    f = PCAFeatures()
+    df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c'], 'c': [2.0, 3.0, 2.0]})
+    inputs = pd.DataFrame(np.random.rand(1000000,10))
+    inputs[1] = inputs[1].apply(lambda x: x * 10.0)
+    inputs[5] = inputs[5].apply(lambda x: 'blarg')
+    print(f.produce(inputs))

@@ -1,3 +1,5 @@
 #!/bin/sh
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8 
 export FLASK_APP=main.py
-python -m flask run --host=0.0.0.0
+python3.6 -m flask run --host=0.0.0.0 --port=5002

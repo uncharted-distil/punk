@@ -1,10 +1,8 @@
 
-__version__ = "1.1.1"
+__version__ = "3.0.0"
 
 
 __all__ = [
     "feature_selection",
-    "novelty_detection",
-    "aggregator",
     "preppy",
 ]
