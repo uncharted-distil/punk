@@ -8,7 +8,7 @@ from sklearn.preprocessing import normalize
 import pandas as pd
 
 class RFFeatures():
-    def rank_features(self, inputs: pd.DataFrame, targets: pd.DataFrame, problem_type='classification') -> pd.DataFrame:
+    def rank_features(self, inputs: pd.DataFrame, targets: pd.DataFrame, problem_type='classification', seed: int = 0) -> pd.DataFrame:
         """ Rank features using Random Forest classifier and the recursive feature elimination
 
         """
@@ -23,9 +23,9 @@ class RFFeatures():
             print(original_columns)
 
             if problem_type == 'classification':
-                predictor = RandomForestClassifier()
+                predictor = RandomForestClassifier(random_state=seed)
             else:
-                predictor = RandomForestRegressor()
+                predictor = RandomForestRegressor(random_state=seed)
 
             rfe = RFE(predictor, n_features_to_select=1)
             rfe = rfe.fit(X, y)
